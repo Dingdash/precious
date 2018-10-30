@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 import '../models/loginModel.dart';
 import '../session/singleton.dart';
+import '../utils/config.dart' as global;
 class Login extends StatelessWidget {
   final LoginModel loginmodel = LoginModel();
 

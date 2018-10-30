@@ -4,7 +4,9 @@ import 'screens/categories.dart';
 import 'screens/login.dart';
 import 'screens/personal_info.dart';
 import 'screens/products.dart';
-
+import 'screens/search.dart';
+import 'screens/temp.dart';
+import 'screens/product_detail.dart';
 class App extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(title: 'News!', onGenerateRoute: routes);
@@ -13,7 +15,9 @@ class App extends StatelessWidget {
   Route routes(RouteSettings settings) {
     if (settings.name == '/') {
       return MaterialPageRoute(builder: (context) {
-        return Login();
+        //return Login();
+        //return Search();
+        return ProductDetail();
       });
     } else if (settings.name == '/home') {
       return MaterialPageRoute(builder: (context) {
@@ -27,11 +31,14 @@ class App extends StatelessWidget {
       return MaterialPageRoute(builder: (context) {
         final categoryID =
             int.parse(settings.name.replaceFirst('/categories/', ''));
-
         return Products(
           categories: categoryID,
         );
       });
+    }else if (settings.name == '/search'){
+        return MaterialPageRoute(builder: (context){
+          return Search();
+        });
     }
   }
 }

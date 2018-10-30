@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/drawer.dart';
+import '../utils/config.dart' as c;
 class Categories extends StatelessWidget{
   List<String> categories = [
     'Prints',
@@ -8,10 +10,20 @@ class Categories extends StatelessWidget{
     'Notebooks',
     'Framed Prints',
   ];
+
+
+  Future<String> getCategoriesfromAPI(){
+    print(c.base_url);
+
+
+}
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'Home',
       home: Scaffold(
+
+        drawer: myDrawer(),
         appBar: AppBar(
           title: Center(child: Text('Categories')),
 
@@ -30,7 +42,8 @@ class Categories extends StatelessWidget{
             color:Colors.red,
           child: InkWell(
             onTap: (){
-              Navigator.of(context).pushNamed('/categories/1');
+              Navigator.pushNamed(context,'/categories/1');
+
             },
             child: Center(
               child: Text(product)
