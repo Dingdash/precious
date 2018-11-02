@@ -5,16 +5,14 @@ import '../session/singleton.dart';
 
 class PersonalInfo extends StatelessWidget {
   Widget build(context) {
-    return MaterialApp(
-        title: 'Personal Information',
-        home: Scaffold(
-          body: buildList(context),
-          appBar: AppBar(
-            title: Center(
-              child: Text('Personal Information'),
-            ),
-          ),
-        ));
+    return Scaffold(
+      body: buildList(context),
+      appBar: AppBar(
+        title: Center(
+          child: Text('Personal Information'),
+        ),
+      ),
+    );
   }
 
   Widget buildList(BuildContext context) {

@@ -1,56 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../screens/products.dart';
+import '../screens/search.dart';
+import '../states/category_state.dart';
 import '../widgets/drawer.dart';
-import '../utils/config.dart' as c;
-class Categories extends StatelessWidget{
-  List<String> categories = [
-    'Prints',
-    'Postcard',
-    'Mugs',
-    'Greeting Card',
-    'Notebooks',
-    'Framed Prints',
-  ];
 
-
-  Future<String> getCategoriesfromAPI(){
-    print(c.base_url);
-
-
-}
+class Categories extends StatelessWidget {
+  final CategoryModel categorymodel = CategoryModel();
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-      title: 'Home',
-      home: Scaffold(
-
+    categorymodel.parseFromResponse();
+    return Scaffold(
         drawer: myDrawer(),
         appBar: AppBar(
-          title: Center(child: Text('Categories')),
-
+          centerTitle: true,
+          title: Text('Categories'),
         ),
-        body:SafeArea(child: CategoriesTile(context)) ,
-      )
+        body: SafeArea(
+          child: ScopedModel<CategoryModel>(
+            model: CategoryModel(),
+            child: CategoriesTile(context),
+          ),
+        ),
+      );
 
+  }
+
+  Widget CategoriesTile(BuildContext context) {
+    return ScopedModel<CategoryModel>(
+      model: categorymodel,
+      child: ScopedModelDescendant<CategoryModel>(
+        builder: (context, child, model) => GridView.count(
+              crossAxisCount: 2,
+              children: categorymodel.categories.map((product) {
+                return Material(
+                  color: Colors.red,
+                  child: InkWell(
+                    onTap: () {
+                      // Navigator.of(context).pushReplacementNamed('/home');
+                      Navigator.pushNamed(
+                          context, '/categories/'+product.name+'/' + product.id.toString());
+                    },
+                    child: Center(child: Text(product.name)),
+                  ),
+                );
+              }).toList(),
+            ),
+      ),
     );
   }
-  Widget  CategoriesTile(BuildContext context){
-   return GridView.count(
 
-     crossAxisCount: 2,
-     children: categories.map((product){
-        return Material(
-            color:Colors.red,
-          child: InkWell(
-            onTap: (){
-              Navigator.pushNamed(context,'/categories/1');
-
-            },
-            child: Center(
-              child: Text(product)
-            ),
-          ),
-        );
-     }).toList(),
-   );
-  }
 }

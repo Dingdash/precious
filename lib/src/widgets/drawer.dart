@@ -32,14 +32,14 @@ class myDrawer extends StatelessWidget {
           title: Text("Home"),
           onTap: () {
 
-            Navigator.of(context).pushNamed('/search');
+
           },
         ),
         ListTile(
           leading: Icon(Icons.search),
           title: Text("Search"),
           onTap: () {
-
+            Navigator.of(context).pushNamed('/search');
           },
         ),
         ListTile(
@@ -51,7 +51,10 @@ class myDrawer extends StatelessWidget {
         ),
         ListTile(
           leading: Icon(Icons.card_giftcard),
-          title: Text('Wishlist($wishes)'),
+          title: Text('Wishlist'),
+          onTap: (){
+            Navigator.of(context).pushNamed('/wishlist');
+          },
         ),
         Divider(
           height: 10.0,

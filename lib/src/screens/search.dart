@@ -14,8 +14,7 @@ class Search extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-
-            Navigator.of(context).pushNamed('/');
+            Navigator.pop(context);
           }),
           title: TextField(),
 
@@ -43,15 +42,10 @@ class Search extends StatelessWidget {
   }
  Widget buildChips(List<String> filter)
   {
-
         return Container(
           padding: EdgeInsets.only(right: 10.0),
           height: 200.0,
           child: Chip(label: Text(filter[0])),
         );
-
-
-
-
   }
 }

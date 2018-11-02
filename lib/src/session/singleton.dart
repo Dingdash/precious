@@ -1,22 +1,13 @@
 import 'package:scoped_model/scoped_model.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-class Session extends InheritedWidget{
-    final user_session = UserModel();
-    bool updateShouldNotify(_) => true;
 
-    static UserModel of(BuildContext context) {
-      return (context.inheritFromWidgetOfExactType(Session) as Session).user_session;
-    }
-  Session({Key key, Widget child}) : super(key: key, child: child);
-}
+
 
 
 class UserModel extends Model{
   UserModel model = null;
   UserModel()
   {
-;
+
   }
   String _username, _first_name,_last_name,_birthdate,_address,_email,_password,_gender,_city,_telp,_postCode;
   bool loggedin = false;
