@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../session/singleton.dart';
 class myDrawer extends StatelessWidget {
   int wishes = 0;
 
@@ -14,7 +14,7 @@ class myDrawer extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 child: Text(
-                  'DS',
+                  session.getAvatarName(),
                   textScaleFactor: 2.0,
                 ),
                 radius: 50.0,
@@ -22,7 +22,7 @@ class myDrawer extends StatelessWidget {
               SizedBox(
                 height: 20.0,
               ),
-              Text('youglh@yahoo.com'),
+              Text(session.getEmail),
             ],
           ),
           decoration: BoxDecoration(),
@@ -31,7 +31,7 @@ class myDrawer extends StatelessWidget {
           leading: Icon(Icons.home),
           title: Text("Home"),
           onTap: () {
-
+          Navigator.of(context).pushReplacementNamed('/home');
 
           },
         ),
@@ -53,7 +53,9 @@ class myDrawer extends StatelessWidget {
           leading: Icon(Icons.card_giftcard),
           title: Text('Wishlist'),
           onTap: (){
-            Navigator.of(context).pushNamed('/wishlist');
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed('/wishlist');
+
           },
         ),
         Divider(

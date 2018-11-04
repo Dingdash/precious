@@ -5,8 +5,9 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/productDetailModel.dart';
 
 class ProductDetail extends StatelessWidget {
+  ProductDetailModel model = new ProductDetailModel();
   Widget build(BuildContext context) {
-    ProductDetailModel model = new ProductDetailModel();
+
     model.parseFromResponse(1);
 
     return Scaffold(
@@ -95,7 +96,7 @@ class ProductDetail extends StatelessWidget {
                             SizedBox(
                               width: 14.0,
                             ),
-                            Text(model.selectedspec[0].name),
+                            model.selectedspec.isEmpty?Text('loading'):Text(model.selectedspec[0].name),
                           ],
                         ),
                   ),

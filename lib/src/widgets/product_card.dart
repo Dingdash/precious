@@ -8,7 +8,6 @@ class ProductCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       elevation: 50.0,
       child: new Column(

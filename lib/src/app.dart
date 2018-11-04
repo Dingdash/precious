@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:scoped_model/scoped_model.dart';
 import 'screens/categories.dart';
 import 'screens/login.dart';
 import 'screens/personal_info.dart';
@@ -7,11 +7,12 @@ import 'screens/products.dart';
 import 'screens/search.dart';
 import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
+import 'screens/account_settings.dart';
+import 'states/category_state.dart';
 class App extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(title: 'News!', onGenerateRoute: routes);
   }
-
   Route routes(RouteSettings settings) {
     if (settings.name == '/') {
       return MaterialPageRoute(builder: (context) {
@@ -19,7 +20,10 @@ class App extends StatelessWidget {
       });
     } else if (settings.name == '/home') {
       return MaterialPageRoute(builder: (context) {
-        return Categories();
+        return ScopedModel<CategoryModel>(
+          model: CategoryModel(),
+          child: Categories(),
+        );
       });
     } else if (settings.name == '/personalinfo') {
       return MaterialPageRoute(builder: (context) {
@@ -38,17 +42,21 @@ class App extends StatelessWidget {
           categoryname: categoryName,
         );
       });
-    }else if (settings.name == '/search'){
-        return MaterialPageRoute(builder: (context){
-          return Search();
-        });
-    }else if (settings.name.contains('/product')){
-      return MaterialPageRoute(builder:(context){
+    } else if (settings.name == '/search') {
+      return MaterialPageRoute(builder: (context) {
+        return Search();
+      });
+    } else if (settings.name.contains('/product')) {
+      return MaterialPageRoute(builder: (context) {
         return ProductDetail();
       });
-    }else if (settings.name == '/wishlist'){
-      return MaterialPageRoute(builder: (context){
+    } else if (settings.name == '/wishlist') {
+      return MaterialPageRoute(builder: (context) {
         return Wishlist();
+      });
+    } else if (settings.name == '/settings') {
+      return MaterialPageRoute(builder: (context) {
+        return AccountSettings();
       });
     }
   }

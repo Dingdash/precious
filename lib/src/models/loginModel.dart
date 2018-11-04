@@ -19,7 +19,7 @@ class LoginModel extends Model {
     } else {
       errorTextUser = 'Please enter a Username';
     }
-    print(errorTextUser);
+
     notifyListeners();
   }
   void changePass(String val){
@@ -41,3 +41,4 @@ class LoginModel extends Model {
 
 
 }
+final LoginModel  loginmodel = LoginModel();

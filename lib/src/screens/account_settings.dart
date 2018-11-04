@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:scoped_model/scoped_model.dart';
 class AccountSettings extends StatelessWidget {
+
   Widget build(context) {
     return MaterialApp(
         title: 'Account Settings',

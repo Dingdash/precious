@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import '../widgets/drawer.dart';
 import '../models/wishlistModel.dart';
 class Wishlist extends StatelessWidget{
 String name='tes';
@@ -8,7 +9,10 @@ wishlistModel model =  wishlistModel();
   Widget build(BuildContext context){
     model.parseFromResponse();
     return Scaffold(
+      drawer: myDrawer(),
+
         appBar: AppBar(
+
           centerTitle: true,
           title: Text('My wishlist'),
 

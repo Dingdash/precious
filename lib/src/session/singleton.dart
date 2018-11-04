@@ -5,10 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class UserModel extends Model{
   UserModel model = null;
-  UserModel()
-  {
 
-  }
   String _username, _first_name,_last_name,_birthdate,_address,_email,_password,_gender,_city,_telp,_postCode;
   bool loggedin = false;
   String get getUsername => _username;
@@ -75,6 +72,17 @@ class UserModel extends Model{
   void setEmail(String val)
   {
     _email = val;
+    
+  }
+  String getAvatarName()
+  {
+    if(_last_name.isEmpty)
+      {
+        return _first_name.substring(0,2).toUpperCase();
+      }else
+        {
+          return (_first_name.substring(0,1) + _last_name.substring(0,1)).toUpperCase();
+        }
   }
 
 }

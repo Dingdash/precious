@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
+
 import '../widgets/product_card.dart';
+
 class Products extends StatelessWidget {
   int categories;
   String categoryname;
@@ -15,30 +17,30 @@ class Products extends StatelessWidget {
 
   Widget build(BuildContext context) {
     model.parseProductsFromResponse(categories, 0);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryname),
-        leading: FlatButton(
-            child: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              model._productsList.clear();
-              model.pageindex = 0;
-              model.currentProductCount = 0;
-              model.parseProductsFromResponse(categories, 0);
-            },
-          )
-        ],
-      ),
-      body: ScopedModel<ProductScopedModel>(
-        model: model,
-        child: ScopedModelDescendant<ProductScopedModel>(
-            builder: (context, child, model) => ListView.builder(
+    return ScopedModel<ProductScopedModel>(
+      model:model,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(categoryname),
+          leading: FlatButton(
+              child: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                model._productsList.clear();
+                model.pageindex = 0;
+                model.currentProductCount = 0;
+                model.parseProductsFromResponse(categories, 0);
+              },
+            )
+          ],
+        ),
+        body: ScopedModelDescendant<ProductScopedModel>(
+          builder: (context, child, model) => ListView.builder(
                 itemCount: model.getProductsCount(),
                 itemBuilder: (BuildContext context, int index) {
                   if (index == model.getProductsCount() - 1) {
@@ -54,14 +56,14 @@ class Products extends StatelessWidget {
                     model.productsList[index].name,
                     model.productsList[index].id,
                   );
-                })),
+                },
+              ),
+        ),
       ),
     );
   }
 
-
-  buildSingleProduct(String name,String id)
-  {
+  buildSingleProduct(String name, String id) {
     ProductCard card = ProductCard();
     card.name = name;
     card.id = id;
@@ -101,7 +103,7 @@ class ProductScopedModel extends Model {
     //logic for fetching remote data
     var response = await http
         .get(
-            'http://localhost/precious/products/all/$categoryId?page=$pageIndex')
+            'http://192.168.1.2/precious/products/all/$categoryId?page=$pageIndex')
         .catchError((error) {
       return false;
     });

@@ -1,2 +1,2 @@
-final base_url = "http://localhost/";
+final base_url = "http://192.168.1.2/";
 

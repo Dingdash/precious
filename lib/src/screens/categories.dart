@@ -7,9 +7,8 @@ import '../states/category_state.dart';
 import '../widgets/drawer.dart';
 
 class Categories extends StatelessWidget {
-  final CategoryModel categorymodel = CategoryModel();
+  CategoryModel categorymodel = CategoryModel();
   Widget build(BuildContext context) {
-    categorymodel.parseFromResponse();
     return Scaffold(
         drawer: myDrawer(),
         appBar: AppBar(
@@ -17,20 +16,14 @@ class Categories extends StatelessWidget {
           title: Text('Categories'),
         ),
         body: SafeArea(
-          child: ScopedModel<CategoryModel>(
-            model: CategoryModel(),
             child: CategoriesTile(context),
           ),
-        ),
       );
-
   }
-
   Widget CategoriesTile(BuildContext context) {
-    return ScopedModel<CategoryModel>(
-      model: categorymodel,
-      child: ScopedModelDescendant<CategoryModel>(
-        builder: (context, child, model) => GridView.count(
+    return  ScopedModelDescendant<CategoryModel>(
+        builder: (context, child, model) =>
+            GridView.count(
               crossAxisCount: 2,
               children: categorymodel.categories.map((product) {
                 return Material(
@@ -46,8 +39,7 @@ class Categories extends StatelessWidget {
                 );
               }).toList(),
             ),
-      ),
-    );
+      );
   }
 
 }

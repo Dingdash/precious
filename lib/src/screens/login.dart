@@ -10,57 +10,58 @@ import '../states/category_state.dart';
 import '../utils/config.dart' as global;
 class Login extends StatelessWidget {
   final CategoryModel categorymodel = CategoryModel();
-  final LoginModel loginmodel = LoginModel();
+
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: ListView(children: <Widget>[
-              SizedBox(
-                height: 80.0,
-              ),
-              Column(
-                children: <Widget>[
-                  emailField(),
-                  passwordField(),
-                  Row(
-                    children: <Widget>[
-                      checkboxField(),
-                      Text('View Password'),
-                    ],
-                  ),
+    return ScopedModel<LoginModel>(
+      model: loginmodel,
+      child: Scaffold(
+          body: SafeArea(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: ListView(children: <Widget>[
+                SizedBox(
+                  height: 80.0,
+                ),
+                Column(
+                  children: <Widget>[
+                    emailField(),
+                    passwordField(),
+                    Row(
+                      children: <Widget>[
+                        checkboxField(),
+                        Text('View Password'),
+                      ],
+                    ),
 
-                  ButtonBar(
-                    children: <Widget>[
-                      RaisedButton(
-                        child: Text('LOGIN'),
-                        onPressed: () {
-                          getLogin(loginmodel.user,loginmodel.password,context,categorymodel);
+                    ButtonBar(
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text('LOGIN'),
+                          onPressed: () {
+                            getLogin(loginmodel.user,loginmodel.password,context,categorymodel);
+                          },
+                        ),
+                        RaisedButton(
+                          child: Text('REGISTER'),
+                          onPressed: () {
 
-                        },
-                      ),
-                      RaisedButton(
-                        child: Text('REGISTER'),
-                        onPressed: () {
 
-
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ]),
-          ),
-        ));
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ]),
+            ),
+          )),
+    );
   }
 
   Widget emailField() {
-    return ScopedModel<LoginModel>(
-      model: loginmodel,
-      child: ScopedModelDescendant<LoginModel>(
+    return
+       ScopedModelDescendant<LoginModel>(
         builder: (context,child,model)=> TextField(
           onChanged: (newValue) {
             loginmodel.changeUser(newValue);
@@ -71,20 +72,18 @@ class Login extends StatelessWidget {
             errorText: loginmodel.errorUser,
           ),
         ),
-      ),
     ) ;
   }
 
   Widget checkboxField() {
-    return ScopedModel<LoginModel>(
-        model: loginmodel,
-        child: ScopedModelDescendant<LoginModel>(builder: (context,child,model)=> Checkbox(
+    return
+        ScopedModelDescendant<LoginModel>(builder: (context,child,model)=> Checkbox(
           value: loginmodel.Viewpassword,
           onChanged: (newVal) {
             loginmodel.changeObscure(newVal);
           },
-        )
-        )
+        ),
+
     );
 
   }
@@ -115,7 +114,7 @@ class Login extends StatelessWidget {
 Future<String> getLogin(String username, String password , BuildContext context, CategoryModel categorymodel) async {
 
   var response = await http
-      .post(Uri.encodeFull("http://localhost/precious/user"), headers: {
+      .post(Uri.encodeFull("http://192.168.1.2/precious/user"), headers: {
     "Accept": "application/json"
   }, body: {
     'username': username,
@@ -143,7 +142,6 @@ Future<String> getLogin(String username, String password , BuildContext context,
         session.signIn();
         if(session.loggedin)
         {
-
           Navigator.of(context).pushNamed('/home');
           // Navigator.of(context).pushReplacementNamed('/personalinfo');
         }
