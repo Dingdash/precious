@@ -38,6 +38,11 @@ class LoginModel extends Model {
     obscurePassword = val;
     notifyListeners();
   }
+  void clearData()
+  {
+    userField=''; passwordField=''; errorTextUser='';errorTextPassword='';
+    notifyListeners();
+  }
 
 
 }

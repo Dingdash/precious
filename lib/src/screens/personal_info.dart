@@ -8,9 +8,8 @@ class PersonalInfo extends StatelessWidget {
     return Scaffold(
       body: buildList(context),
       appBar: AppBar(
-        title: Center(
-          child: Text('Personal Information'),
-        ),
+        centerTitle: true,
+        title: Text('Personal Information'),
       ),
     );
   }

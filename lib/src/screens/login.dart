@@ -11,7 +11,8 @@ import '../utils/config.dart' as global;
 class Login extends StatelessWidget {
   final CategoryModel categorymodel = CategoryModel();
 
-
+  final myController = TextEditingController();
+  final myController2 = TextEditingController();
   Widget build(BuildContext context) {
     return ScopedModel<LoginModel>(
       model: loginmodel,
@@ -63,9 +64,11 @@ class Login extends StatelessWidget {
     return
        ScopedModelDescendant<LoginModel>(
         builder: (context,child,model)=> TextField(
+
           onChanged: (newValue) {
             loginmodel.changeUser(newValue);
           },
+          controller: myController2,
           decoration: InputDecoration(
             filled: true,
             labelText: 'username',
@@ -93,6 +96,7 @@ class Login extends StatelessWidget {
       model: loginmodel,
       child: ScopedModelDescendant<LoginModel>(
         builder: (context,child,model)=> TextField(
+          controller: myController,
           obscureText: !loginmodel.Viewpassword,
           onChanged: (newValue) {
             loginmodel.changePass(newValue);

@@ -10,6 +10,7 @@ import 'screens/wishlist.dart';
 import 'screens/account_settings.dart';
 import 'states/category_state.dart';
 class App extends StatelessWidget {
+
   Widget build(context) {
     return MaterialApp(title: 'News!', onGenerateRoute: routes);
   }
@@ -20,10 +21,8 @@ class App extends StatelessWidget {
       });
     } else if (settings.name == '/home') {
       return MaterialPageRoute(builder: (context) {
-        return ScopedModel<CategoryModel>(
-          model: CategoryModel(),
-          child: Categories(),
-        );
+        return Categories();
+
       });
     } else if (settings.name == '/personalinfo') {
       return MaterialPageRoute(builder: (context) {
@@ -57,6 +56,10 @@ class App extends StatelessWidget {
     } else if (settings.name == '/settings') {
       return MaterialPageRoute(builder: (context) {
         return AccountSettings();
+      });
+    }else if (settings.name == '/Personalinfo'){
+      return MaterialPageRoute(builder:(context){
+        return PersonalInfo();
       });
     }
   }

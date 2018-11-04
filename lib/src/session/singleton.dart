@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 
 class UserModel extends Model{
-  UserModel model = null;
+
 
   String _username, _first_name,_last_name,_birthdate,_address,_email,_password,_gender,_city,_telp,_postCode;
   bool loggedin = false;
@@ -83,6 +83,16 @@ class UserModel extends Model{
         {
           return (_first_name.substring(0,1) + _last_name.substring(0,1)).toUpperCase();
         }
+  }
+  void logOut()
+  {
+    _first_name = null;
+    _last_name = null;
+    _birthdate=null;
+    _address=null;
+    _email=null;_password=null;_gender=null;_city=null;_telp=null;_postCode=null;
+    loggedin = false;
+    notifyListeners();
   }
 
 }

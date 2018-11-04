@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../widgets/drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
+import '../session/singleton.dart';
+import '../models/loginModel.dart';
 class AccountSettings extends StatelessWidget {
 
   Widget build(context) {
-    return MaterialApp(
-        title: 'Account Settings',
-        home: Scaffold(
+    return Scaffold(
           body: buildList(context),
+          drawer: myDrawer(),
           appBar: AppBar(
-            title: Center(
-              child: Text('Account Settings'),
-            ),
+            centerTitle: true,
+            title: Text('Account Settings'),
           ),
-        ));
+        );
   }
 
   Widget buildList(BuildContext context) {
@@ -44,6 +46,9 @@ class AccountSettings extends StatelessWidget {
         ),
         ListTile(
           title: Text('Personal Information'),
+          onTap:(){
+            Navigator.of(context).pushNamed('/Personalinfo');
+          }
         ),
         buildDivider(10.0),
         Padding(
@@ -52,7 +57,12 @@ class AccountSettings extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               RawMaterialButton(
-                onPressed: null,
+                onPressed: (){
+                  loginmodel.clearData();
+                session.logOut();
+
+                Navigator.of(context).pop();
+                },
                 child: Text('LOG OUT'),
                 fillColor: Colors.red,
               )
