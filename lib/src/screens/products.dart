@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/product_card.dart';
-
+import '../utils/config.dart' as c;
 class Products extends StatelessWidget {
   int categories;
   String categoryname;
@@ -103,7 +103,7 @@ class ProductScopedModel extends Model {
     //logic for fetching remote data
     var response = await http
         .get(
-            'http://192.168.1.2/precious/products/all/$categoryId?page=$pageIndex')
+            c.base_url+'precious/products/all/$categoryId?page=$pageIndex')
         .catchError((error) {
       return false;
     });

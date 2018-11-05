@@ -7,7 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/loginModel.dart';
 import '../session/singleton.dart';
 import '../states/category_state.dart';
-import '../utils/config.dart' as global;
+import '../utils/config.dart' as c;
 class Login extends StatelessWidget {
   final CategoryModel categorymodel = CategoryModel();
 
@@ -118,7 +118,7 @@ class Login extends StatelessWidget {
 Future<String> getLogin(String username, String password , BuildContext context, CategoryModel categorymodel) async {
 
   var response = await http
-      .post(Uri.encodeFull("http://192.168.1.2/precious/user"), headers: {
+      .post(Uri.encodeFull(c.base_url+"precious/user"), headers: {
     "Accept": "application/json"
   }, body: {
     'username': username,

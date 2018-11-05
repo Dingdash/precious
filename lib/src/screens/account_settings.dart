@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../widgets/drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../session/singleton.dart';
+import '../../main.dart';
 import '../models/loginModel.dart';
 class AccountSettings extends StatelessWidget {
 
@@ -58,10 +59,7 @@ class AccountSettings extends StatelessWidget {
             children: <Widget>[
               RawMaterialButton(
                 onPressed: (){
-                  loginmodel.clearData();
-                session.logOut();
-
-                Navigator.of(context).pop();
+                  RestartWidget.restartApp(context);
                 },
                 child: Text('LOG OUT'),
                 fillColor: Colors.red,
