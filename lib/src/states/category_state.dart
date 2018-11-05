@@ -2,6 +2,10 @@ import 'package:scoped_model/scoped_model.dart';
 import '../utils/config.dart' as c;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
+
+
+import 'package:flutter/foundation.dart';
 class CategoryModel extends Model{
    List<Category> categories = List<Category>();
 
@@ -23,6 +27,7 @@ class CategoryModel extends Model{
         categories.add(cc);
     });
     notifyListeners();
+    return categories;
   }
 
 }

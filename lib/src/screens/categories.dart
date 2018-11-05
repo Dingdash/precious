@@ -24,7 +24,7 @@ class Categories extends StatelessWidget {
 
   Widget CategoriesTile(BuildContext context) {
     return ScopedModelDescendant<CategoryModel>(
-      builder: (context, child, model) => GridView.count(
+      builder: (context, child, model) =>  GridView.count(
             crossAxisCount: 2,
             children: categorymodel.categories.map((product) {
               return Material(

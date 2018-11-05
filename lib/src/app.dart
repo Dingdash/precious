@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'screens/categories.dart';
+import 'screens/categories2.dart';
 import 'screens/login.dart';
 import 'screens/personal_info.dart';
 import 'screens/products.dart';
@@ -8,7 +8,7 @@ import 'screens/search.dart';
 import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
 import 'screens/account_settings.dart';
-import 'states/category_state.dart';
+
 class App extends StatelessWidget {
 
   Widget build(context) {

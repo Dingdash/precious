@@ -63,8 +63,9 @@ class Login extends StatelessWidget {
       builder: (context, child, model) => TextField(
             onChanged: (newValue) {
               loginmodel.changeUser(newValue);
+
             },
-            controller: myController2,
+
             decoration: InputDecoration(
               filled: true,
               labelText: 'username',
@@ -88,9 +89,10 @@ class Login extends StatelessWidget {
   Widget passwordField() {
     return ScopedModelDescendant<LoginModel>(
       builder: (context, child, model) => TextField(
-            controller: myController,
+
             obscureText: !loginmodel.Viewpassword,
             onChanged: (newValue) {
+
               loginmodel.changePass(newValue);
             },
             decoration: InputDecoration(
@@ -130,7 +132,7 @@ Future<String> getLogin(String username, String password, BuildContext context) 
         session.setEmail(result['data']['email'] ?? null);
         session.signIn();
         if (session.loggedin) {
-          Navigator.of(context).pushNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/home');
           // Navigator.of(context).pushReplacementNamed('/personalinfo');
         }
       }

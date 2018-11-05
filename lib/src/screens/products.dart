@@ -10,11 +10,8 @@ import '../utils/config.dart' as c;
 class Products extends StatelessWidget {
   int categories;
   String categoryname;
-
   Products({this.categories, this.categoryname});
-
   ProductScopedModel model = new ProductScopedModel();
-
   Widget build(BuildContext context) {
     model.parseProductsFromResponse(categories, 0);
     return ScopedModel<ProductScopedModel>(
