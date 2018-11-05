@@ -124,7 +124,6 @@ class ProductDetail extends StatelessWidget {
                       filled: true,
                       labelText: 'qty',
                       //errorText: loginmodel.errorPass,
-
                     ),
                   )*/
                 ],

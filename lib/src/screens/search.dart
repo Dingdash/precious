@@ -17,7 +17,6 @@ class Search extends StatelessWidget {
             Navigator.pop(context);
           }),
           title: TextField(),
-
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
@@ -33,7 +32,6 @@ class Search extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children:
             [
-
               buildChips(filtercategories),
             ]
         ),
