@@ -13,7 +13,7 @@ class Search extends StatelessWidget {
     ];
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+          leading: IconButton(icon: Icon(Icons.chevron_left), onPressed: () {
             Navigator.pop(context);
           }),
           title: TextField(),

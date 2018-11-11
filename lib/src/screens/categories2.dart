@@ -65,16 +65,12 @@ class Categories extends StatelessWidget {
     //logic for fetching remote data
     var response = await http
         .get(c.base_url+'precious/categories/all');
-
     var parsed =  json.decode(response.body).cast<Map<String,dynamic>> () ;
     parsed.forEach((cat){
       Category  cc = new Category(name: cat['name'],id:cat['category_id'].toString(),imgurl: 'tes');
-
     });
-
     return parsed.map<Category>((json)=> Category.fromJson(json)).toList();
   }
-
 }
 
 

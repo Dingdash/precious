@@ -15,7 +15,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  material_design_icons_flutter: ^3.0.39
+  open_iconic_flutter: any
   carousel_pro: ^0.0.13
   sqflite:  0.12.2+1
   path_provider: ^0.4.1
@@ -42,7 +43,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+    - family: sjsecret
+      fonts:
+        - asset: fonts/sjsecret.ttf
+  assets:
+    - assets/images/preciousnobg.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

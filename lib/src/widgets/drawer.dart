@@ -15,61 +15,76 @@ class myDrawer extends StatelessWidget {
                 CircleAvatar(
                   child: Text(
                     session.getAvatarName(),
-                    textScaleFactor: 2.0,
+                    textScaleFactor: 2.8,
+
                   ),
                   radius: 50.0,
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
-                Text(session.getEmail),
+                Text(session.getEmail,style: drawerTextStyle(),),
               ],
             ),
             decoration: BoxDecoration(),
           ),
+          Divider(
+            height: 15.0,
+            color: Colors.white10,
+          ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text("Home"),
+            leading: buildIcon(Icons.home),
+            title: Text("Home",style: drawerTextStyle(),),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/home');
             },
           ),
           ListTile(
-            leading: Icon(Icons.search),
-            title: Text("Search"),
+            leading: buildIcon(Icons.search),
+            title: Text("Search",style: drawerTextStyle(),),
             onTap: () {
               Navigator.of(context).pushNamed('/search');
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text("Cart"),
+            leading: buildIcon(Icons.shopping_cart),
+            title: Text("Cart",style: drawerTextStyle(),),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.card_giftcard),
-            title: Text('Wishlist'),
+            leading: buildIcon(Icons.card_giftcard),
+            title: Text('Wishlist',style: drawerTextStyle(),),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacementNamed('/wishlist');
             },
           ),
           Divider(
-            height: 10.0,
+            height: 15.0,
+            color: Colors.white10,
           ),
           ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Account Settings'),
+              leading: buildIcon(Icons.settings),
+              title: Text('Account Settings',style: drawerTextStyle(),),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed('/settings');
               }),
           ListTile(
-            leading: Icon(Icons.stars),
-            title: Text('Rate us'),
+            leading: buildIcon(Icons.stars),
+            title: Text('Rate us',style: drawerTextStyle(),),
           )
         ],
       ),
     );
+  }
+  buildIcon(IconData I)
+  {
+    Color c =Colors.white70;
+    return Icon(I,color: c,);
+  }
+  TextStyle drawerTextStyle()
+  {
+    return TextStyle(color: Colors.white);
   }
 }

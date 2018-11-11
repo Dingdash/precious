@@ -5,8 +5,9 @@ import 'package:scoped_model/scoped_model.dart';
 import '../session/singleton.dart';
 import '../../main.dart';
 import '../models/loginModel.dart';
+import '../api/UserAPI.dart';
 class AccountSettings extends StatelessWidget {
-
+  UserAPI api = UserAPI();
   Widget build(context) {
     return Scaffold(
           body: buildList(context),
@@ -35,14 +36,14 @@ class AccountSettings extends StatelessWidget {
             onTap: () {
               showDialog(
                   context: context,
-                  builder: (BuildContext) => _buildChangeEmail(context));
+                  builder: (_) => _buildChangeEmail(context));
             }),
         ListTile(
           title: Text('Change Password'),
             onTap: () {
               showDialog(
                   context: context,
-                  builder: (BuildContext) => _buildChangePassword(context));
+                  builder: (_) => _buildChangePassword(context));
             }
         ),
         ListTile(
@@ -115,8 +116,14 @@ class AccountSettings extends StatelessWidget {
                       Navigator.of(context).pop();
                     }),
                 FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
+                  onPressed: () async{
+                 await  api.changePassword("haha", "hehe").then((value){if(value['exit']==false){
+                  print("password changed");
+                 }else if (value=="timedout")
+                   {
+                     // timedout
+                   }
+                 });
                   },
                   textColor: Theme.of(context).primaryColor,
                   child: const Text('Change'),
@@ -175,7 +182,7 @@ class AccountSettings extends StatelessWidget {
                   }),
               FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  //Navigator.of(context).pop();
                 },
                 textColor: Theme.of(context).primaryColor,
                 child: const Text('Change'),

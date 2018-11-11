@@ -12,9 +12,6 @@ import '../utils/config.dart' as c;
 class Login extends StatelessWidget {
 
 
-  final myController = TextEditingController();
-  final myController2 = TextEditingController();
-
   Widget build(BuildContext context) {
     return ScopedModel<LoginModel>(
       model: loginmodel,
@@ -26,6 +23,11 @@ class Login extends StatelessWidget {
             SizedBox(
               height: 80.0,
             ),
+            CircleAvatar(
+                radius: 78.0,
+                backgroundColor: Color.fromRGBO(255, 255, 255, 0.0),
+                child: Image.asset('assets/images/preciousnobg.png')),
+            SizedBox(height: 70.0),
             Column(
               children: <Widget>[
                 emailField(),
@@ -37,21 +39,46 @@ class Login extends StatelessWidget {
                   ],
                 ),
                 ButtonBar(
+                  alignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('LOGIN'),
-                      onPressed: () {
-                        getLogin(loginmodel.user, loginmodel.password, context);
-                      },
+                    ButtonTheme(
+                      minWidth: 120.0,
+                      height: 45.0,
+                      child: RaisedButton(
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0)),
+                        elevation: 5.0,
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          getLogin(
+                              loginmodel.user, loginmodel.password, context);
+                        },
+                      ),
                     ),
-                    RaisedButton(
-                      child: Text('REGISTER'),
-                      onPressed: () {},
+                    ButtonTheme(
+                      minWidth: 120.0,
+                      height: 45.0,
+                      child: RaisedButton(
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0)),
+                        elevation: 5.0,
+                        child: Text(
+                          'REGISTER',
+                          style: TextStyle(color: Colors.white),
+                          textScaleFactor: 1.0,
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
                   ],
                 ),
               ],
-            )
+            ),
           ]),
         ),
       )),
@@ -63,9 +90,7 @@ class Login extends StatelessWidget {
       builder: (context, child, model) => TextField(
             onChanged: (newValue) {
               loginmodel.changeUser(newValue);
-
             },
-
             decoration: InputDecoration(
               filled: true,
               labelText: 'username',
@@ -77,11 +102,15 @@ class Login extends StatelessWidget {
 
   Widget checkboxField() {
     return ScopedModelDescendant<LoginModel>(
-      builder: (context, child, model) => Checkbox(
-            value: loginmodel.Viewpassword,
-            onChanged: (newVal) {
-              loginmodel.changeObscure(newVal);
-            },
+      builder: (context, child, model) => Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Checkbox(
+              activeColor: Colors.redAccent,
+              value: loginmodel.Viewpassword,
+              onChanged: (newVal) {
+                loginmodel.changeObscure(newVal);
+              },
+            ),
           ),
     );
   }
@@ -89,10 +118,8 @@ class Login extends StatelessWidget {
   Widget passwordField() {
     return ScopedModelDescendant<LoginModel>(
       builder: (context, child, model) => TextField(
-
             obscureText: !loginmodel.Viewpassword,
             onChanged: (newValue) {
-
               loginmodel.changePass(newValue);
             },
             decoration: InputDecoration(
@@ -105,7 +132,8 @@ class Login extends StatelessWidget {
   }
 }
 
-Future<String> getLogin(String username, String password, BuildContext context) async {
+Future<String> getLogin(
+    String username, String password, BuildContext context) async {
   var response =
       await http.post(Uri.encodeFull(c.base_url + "precious/user"), headers: {
     "Accept": "application/json"

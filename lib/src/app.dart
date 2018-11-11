@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+
+import 'colors.dart';
+import 'screens/account_settings.dart';
 import 'screens/categories2.dart';
 import 'screens/login.dart';
 import 'screens/personal_info.dart';
+import 'screens/product_detail.dart';
 import 'screens/products.dart';
 import 'screens/search.dart';
-import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
-import 'screens/account_settings.dart';
+
+
+ThemeData _buildPreciousTheme(context) {
+
+  final ThemeData base = ThemeData(fontFamily: 'sjsecret');
+  return base.copyWith(
+    canvasColor: canvasColor,
+
+    primaryColor: primaryColor,
+    buttonColor: primaryColor,
+    scaffoldBackgroundColor: backgroundColor,
+    cardColor: Colors.white70,
+    textSelectionColor: primaryColor,
+    textSelectionHandleColor: Colors.black.withOpacity(0.3),
+    errorColor: Colors.black,
+    highlightColor: primaryColor,
+    splashColor: primaryColor,
+
+
+
+    // TODO: Add the text themes (103)
+    // TODO: Add the icon themes (103)
+    // TODO: Decorate the inputs (103)
+  );
+}
 
 class App extends StatelessWidget {
-
   Widget build(context) {
-    return MaterialApp(title: 'News!', onGenerateRoute: routes);
+    return MaterialApp(
+      title: 'News!',
+      onGenerateRoute: routes,
+      theme: _buildPreciousTheme(context),
+    );
   }
+
   Route routes(RouteSettings settings) {
     if (settings.name == '/') {
       return MaterialPageRoute(builder: (context) {
@@ -22,7 +52,6 @@ class App extends StatelessWidget {
     } else if (settings.name == '/home') {
       return MaterialPageRoute(builder: (context) {
         return Categories();
-
       });
     } else if (settings.name == '/personalinfo') {
       return MaterialPageRoute(builder: (context) {
@@ -57,8 +86,8 @@ class App extends StatelessWidget {
       return MaterialPageRoute(builder: (context) {
         return AccountSettings();
       });
-    }else if (settings.name == '/Personalinfo'){
-      return MaterialPageRoute(builder:(context){
+    } else if (settings.name == '/Personalinfo') {
+      return MaterialPageRoute(builder: (context) {
         return PersonalInfo();
       });
     }

@@ -1,19 +1,25 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 import '../models/productDetailModel.dart';
 
 class ProductDetail extends StatelessWidget {
   ProductDetailModel model = new ProductDetailModel();
+  TextStyle white = new TextStyle(
+      inherit: false, color: Colors.white, decorationColor: Colors.white);
   Widget build(BuildContext context) {
-
     model.parseFromResponse(1);
-
     return Scaffold(
+
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.shopping_cart),onPressed: (){},),
+        ],
         title: Text('Details'),
+
       ),
+
       body: ScopedModel<ProductDetailModel>(
         model: model,
         child: ListView(
@@ -33,7 +39,6 @@ class ProductDetail extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ScopedModelDescendant<ProductDetailModel>(
@@ -59,18 +64,23 @@ class ProductDetail extends StatelessWidget {
                     builder: (context, child, model) =>
                         model.item.variant.length < 1
                             ? Text('is loading ..')
-                            : DropdownButton<Variant>(
-                                value: model.selectedVariant ??
-                                    model.item.variant[0],
-                                items: model.item.variant.map((value) {
-                                  return DropdownMenuItem<Variant>(
-                                    value: value,
-                                    child: Text(value.Specification_name),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  model.ChangeVariant(value);
-                                },
+                            : Theme(
+                                data: Theme.of(context).copyWith(
+                                  canvasColor: Colors.white,
+                                ),
+                                child: DropdownButton<Variant>(
+                                  hint: Text('Select One'),
+                                  value: model.selectedVariant,
+                                  items: model.item.variant.map((value) {
+                                    return DropdownMenuItem<Variant>(
+                                      value: value,
+                                      child: Text(value.Specification_name),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    model.ChangeVariant(value);
+                                  },
+                                ),
                               ),
                   ),
                   /* child: model.item.variant.length > 0
@@ -83,7 +93,6 @@ class ProductDetail extends StatelessWidget {
                   ScopedModelDescendant<ProductDetailModel>(
                     builder: (context, child, model) => Row(
                           children: <Widget>[
-
                             Container(
                               height: 6.0,
                               width: 10.0,
@@ -92,32 +101,24 @@ class ProductDetail extends StatelessWidget {
                                 shape: BoxShape.circle,
                               ),
                             ),
-
                             SizedBox(
                               width: 14.0,
                             ),
-                            model.selectedspec.isEmpty?Text('loading'):Text(model.selectedspec[0].name),
+                            model.selectedspec.isEmpty
+                                ? Text('loading')
+                                : Text(model.selectedspec[0].name),
                           ],
                         ),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Row(
-                    children: <Widget>[
-                      RaisedButton(
-                        child: Text('Add to Cart'),
-                        onPressed: () {},
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      RaisedButton(
-                        child: Text('Add to Wishlist'),
-                        onPressed: () {},
-                      )
-                    ],
+                  RaisedButton(
+                    color: Color.fromRGBO(125, 17, 14, 1.0),
+                    child: Text('Add to wishlist',style: TextStyle(color: Colors.white),),
+                    onPressed: (){},
                   ),
+
                   /*TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -129,6 +130,21 @@ class ProductDetail extends StatelessWidget {
                 ],
               ),
             ),
+           Row(
+             mainAxisSize: MainAxisSize.max,
+             children: <Widget>[
+                 Expanded(
+                       flex: 1,
+                       child: Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: RaisedButton(color: Colors.black,child:Text('ADD TO CART',style: TextStyle(color: Colors.white),),onPressed: (){},),
+                       )
+
+
+               ),
+              
+             ],
+           )
           ],
         ),
       ),

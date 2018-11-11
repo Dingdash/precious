@@ -41,7 +41,7 @@ class ProductDetailModel extends Model {
 
   loadFirst()
   {
-    selectedVariant = item.variant[0];
+
     selectedspec = item.variant[0].spec;
     notifyListeners();
   }

@@ -1,4 +1,5 @@
 import 'package:scoped_model/scoped_model.dart';
+
 class LoginModel extends Model {
   String userField, passwordField, errorTextUser, errorTextPassword;
   bool obscurePassword = false;

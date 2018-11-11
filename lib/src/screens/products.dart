@@ -20,7 +20,8 @@ class Products extends StatelessWidget {
         appBar: AppBar(
           title: Text(categoryname),
           leading: FlatButton(
-              child: Icon(Icons.arrow_back),
+
+              child: Icon(Icons.arrow_back, color:  Colors.white,),
               onPressed: () {
                 Navigator.pop(context);
               }),
