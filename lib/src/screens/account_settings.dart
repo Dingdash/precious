@@ -118,7 +118,7 @@ class AccountSettings extends StatelessWidget {
                 FlatButton(
                   onPressed: () async{
                  await  api.changePassword("haha", "hehe").then((value){if(value['exit']==false){
-                  print("password changed");
+                  print(value['message']);
                  }else if (value=="timedout")
                    {
                      // timedout

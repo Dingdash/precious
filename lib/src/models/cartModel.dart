@@ -3,15 +3,16 @@ import 'package:scoped_model/scoped_model.dart';
 class cartModel extends Model{
   List<productItem> cart = List<productItem>();
 
-  addtoCart(){
+  addtoCart(int id,int variant){
 
   }
 
  removeItem(){
 
  }
- decreaseItem(){
-
+ decreaseItem(int id){
+  
+  notifyListeners();
  }
  clearCart(){
     cart.clear();
@@ -33,10 +34,6 @@ class productItem {
   int specification_id;
   String varian;
   int subtotal;
-
-
-
-
 }
 
 

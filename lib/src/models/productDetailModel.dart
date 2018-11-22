@@ -26,26 +26,24 @@ class ProductDetailModel extends Model {
 
     selectedVariant = value;
     notifyListeners();
-    //selectedspec =  selectedVariant.spec;
-    //notifyListeners();
+    selectedspec =  selectedVariant.spec;
+    notifyListeners();
 
 
 
 
   }
-  getSpec()
-  {
-    print(selectedspec);
-  }
+
 
 
   loadFirst()
   {
 
+    selectedVariant = item.variant[0];
+    notifyListeners();
     selectedspec = item.variant[0].spec;
     notifyListeners();
   }
-
   Future parseFromResponse(int id) async {
 
     var dataFromResponse = await _getProduct(id);

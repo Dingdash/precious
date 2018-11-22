@@ -20,7 +20,6 @@ class Products extends StatelessWidget {
         appBar: AppBar(
           title: Text(categoryname),
           leading: FlatButton(
-
               child: Icon(Icons.arrow_back, color:  Colors.white,),
               onPressed: () {
                 Navigator.pop(context);
@@ -114,9 +113,7 @@ class ProductScopedModel extends Model {
 
   Future parseProductsFromResponse(int categoryId, int pageIndex) async {
     var dataFromResponse = await _getProductsByCategory(categoryId, pageIndex);
-
     dataFromResponse = dataFromResponse['data'] as List;
-
     dataFromResponse.forEach((newProduct) {
       //parse new product's details
       Product product = new Product(
@@ -124,11 +121,9 @@ class ProductScopedModel extends Model {
         name: newProduct["name"],
       );
       currentProductCount += 1;
-
       addToProductsList(product);
     });
 
-    //print(currentProductCount);
 
     notifyListeners();
   }

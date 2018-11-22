@@ -7,18 +7,20 @@ class  UserAPI {
 
   final url = c.base_url+"precious/user/edituser";
  Future <dynamic> changePassword(String oldpass, String newpass)
+
   async
   {
+    //print(newpass);
       var string;
     Map<String, String> headers = Map<String, String>();
-    headers['Content-type'] = "application/json";
+
     headers['Accept'] = "application/json";
-    var resp = await http.post(url+"/password").timeout(Duration(seconds: 20),onTimeout: (){
+    Map<String,String> body = Map<String,String>();
+    body['password']=newpass;
+    var resp = await http.post(url+"/password",headers: headers,body:body).timeout(Duration(seconds: 20),onTimeout: (){
       string = "timedout";
     }).catchError((e){print(e.toString());}).then((value){
       string = jsonDecode(value.body);
-
-
        
     });
     return string;
