@@ -60,7 +60,15 @@ class AccountSettings extends StatelessWidget {
             children: <Widget>[
               RawMaterialButton(
                 onPressed: (){
-                  RestartWidget.restartApp(context);
+                    session.logOut();
+                    if(session.loggedin==false)
+                      {
+                        print(session.getEmail);
+                        print(session.getFirstname);
+                        loginmodel.clearData();
+                        RestartWidget.restartApp(context);
+                      }
+
                 },
                 child: Text('LOG OUT'),
                 fillColor: Colors.red,

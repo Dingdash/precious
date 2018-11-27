@@ -15,18 +15,22 @@ class CategoryModel extends Model{
   Future<dynamic> _getCategories() async {
     //logic for fetching remote data
     var response = await http
-        .get(c.base_url+'precious/categories/all').catchError((error) {
+        .get(c.base_url+'/categories/all').catchError((error) {
       return false;
     });
     return json.decode(response.body);
   }
    parseFromResponse()async{
     var dataFromResponse = await _getCategories() as List;
+    print(dataFromResponse);
     dataFromResponse.forEach((cat){
-        Category  cc = new Category(name: cat['name'],id:cat['category_id'].toString(),imgurl: 'tes');
-        categories.add(cc);
+        /*Category  cc = new Category(name: cat['name'],id:cat['category_id'].toString(),imgurl: 'tes');
+
+        categories.add(cc);*/
+        print(cat['name']);
     });
     notifyListeners();
+    print('tes');
     return categories;
   }
 

@@ -13,7 +13,7 @@ class LoginModel extends Model {
   String get errorPass => errorTextPassword;
   bool get Viewpassword => obscurePassword;
   void changeUser(String val) {
-    print(val);
+
     userField = val;
     if (val.length>0) {
       errorTextUser = null;

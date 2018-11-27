@@ -3,6 +3,7 @@ import 'src/app.dart';
 //void main() => runApp(new App());
 void main() {
   runApp(new RestartWidget(
+
       child: App(),
   ));
 }
@@ -13,6 +14,7 @@ class RestartWidget extends StatefulWidget {
   RestartWidget({this.child});
 
   static restartApp(BuildContext context) {
+
     final _RestartWidgetState state =
     context.ancestorStateOfType(const TypeMatcher<_RestartWidgetState>());
     state.restartApp();

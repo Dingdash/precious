@@ -7,7 +7,7 @@ class wishlistModel extends Model{
   Future<dynamic> _getWishlist() async {
     //logic for fetching remote data localhost/precious/user/wishlist
     var response = await http
-        .get(c.base_url + 'precious/user/wishlist')
+        .get(c.base_url + '/user/wishlist')
         .catchError((error) {
       return false;
     });
@@ -19,7 +19,7 @@ class wishlistModel extends Model{
     var dataFromResponse = await _getWishlist();
     var _wishlist = dataFromResponse as List;
     _wishlist.forEach((data){
-      print(data['Product_name']);
+      //print(data['Product_name']);
       Wishlist w = Wishlist(Product_ID: data['Product_ID'].toString(),User_ID: data['User_ID'].toString(),Category_ID: data['Category_ID'],Product_name: data['Product_name']);
       wishlist.add(w);
     });

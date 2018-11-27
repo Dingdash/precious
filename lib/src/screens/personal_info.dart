@@ -5,6 +5,7 @@ import '../session/singleton.dart';
 
 class PersonalInfo extends StatelessWidget {
   PModel pinfo = PModel();
+
   Widget build(context) {
     return Scaffold(
       body: buildList(context),
@@ -32,12 +33,9 @@ class PersonalInfo extends StatelessWidget {
                       style: TextStyle(color: Colors.blue),
                     ),
               ),
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (_) => _buildFirstname(context));
-
-              },
+              onTap: ()=>
+                     _buildFirstname(context)
+              ,
             ),
             ListTile(
               title: Text('Surname'),
@@ -49,7 +47,7 @@ class PersonalInfo extends StatelessWidget {
                       style: TextStyle(color: Colors.blue),
                     ),
               ),
-              onTap: () {},
+              onTap: ()=>_buildSurname(context),
             ),
             ListTile(
               title: Text('User ID'),
@@ -71,7 +69,7 @@ class PersonalInfo extends StatelessWidget {
                     : session.getAddress,
                 style: TextStyle(color: Colors.blue),
               ),
-              onTap: () {},
+              onTap: ()=>_buildAddress(context),
             ),
             ListTile(
               title: Text('Post code'),
@@ -81,7 +79,7 @@ class PersonalInfo extends StatelessWidget {
                     : session.getPostcode,
                 style: TextStyle(color: Colors.blue),
               ),
-              onTap: () {},
+              onTap: () => _buildPostCode(context),
             ),
             ListTile(
               title: Text('City'),
@@ -89,7 +87,8 @@ class PersonalInfo extends StatelessWidget {
                 session.getCity == null ? 'Enter City' : session.getCity,
                 style: TextStyle(color: Colors.blue),
               ),
-              onTap: () {},
+              onTap: () =>_buildCity(context)
+                ,
             )
           ],
         ),
@@ -97,182 +96,194 @@ class PersonalInfo extends StatelessWidget {
     );
   }
 
-  Widget _buildFirstname(BuildContext context) {
-   return  AlertDialog(
-      title: const Text('Change your First name'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Enter first name',
-            ),
-            onChanged: (value) {
-              if (value.length > 0) {
-              pinfo.fname = value;
-              }
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                  child: Text('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                onPressed: () {
-
-                  session.setFirstname(pinfo.fname);
-                  Navigator.of(context).pop();
-                },
-                textColor: Theme.of(context).primaryColor,
-                child: const Text('Change'),
+  _buildFirstname(BuildContext context) {
+    return showDialog(context:context,builder:(BuildContext context){
+      return AlertDialog(
+        title: const Text('Change your First name'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Enter first name',
               ),
-            ],
-          ),
-        ],
-      ),
-    );
+              onChanged: (value) {
+                if (value.length > 0) {
+                  pinfo.fname = value;
+                }
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                FlatButton(
+                    child: Text('cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                FlatButton(
+                  onPressed: () {
+                    session.setFirstname(pinfo.fname);
+                    Navigator.of(context).pop();
+                  },
+                  textColor: Theme.of(context).primaryColor,
+                  child: const Text('Change'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildSurname(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('Change your Surname'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: 'Enter Surname',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                  child: Text('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                onPressed: () {
-                  //Navigator.of(context).pop();
-                },
-                textColor: Theme.of(context).primaryColor,
-                child: const Text('Change'),
+  _buildSurname(BuildContext context) {
+    return showDialog(context: context,builder:(BuildContext context){
+      return new AlertDialog(
+        title: const Text('Change your Surname'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Enter Surname',
               ),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                FlatButton(
+                    child: Text('cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                FlatButton(
+                  onPressed: () {
+                    //Navigator.of(context).pop();
+                  },
+                  textColor: Theme.of(context).primaryColor,
+                  child: const Text('Change'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildAddress(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('Change your Address'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: 'Enter new Address',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                  child: Text('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                onPressed: () {
-                  //Navigator.of(context).pop();
-                },
-                textColor: Theme.of(context).primaryColor,
-                child: const Text('Change'),
+  _buildAddress(BuildContext context) {
+    return showDialog(context:context,builder:(BuildContext context){
+      return new AlertDialog(
+        title: const Text('Change your Address'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Enter new Address',
               ),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                FlatButton(
+                    child: Text('cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                FlatButton(
+                  onPressed: () {
+                    //Navigator.of(context).pop();
+                  },
+                  textColor: Theme.of(context).primaryColor,
+                  child: const Text('Change'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildPostCode(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('Change your Post Code'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            keyboardType: TextInputType.numberWithOptions(),
-            decoration: InputDecoration(
-              hintText: 'Enter new Post Code',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                  child: Text('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                onPressed: () {
-                  //Navigator.of(context).pop();
-                },
-                textColor: Theme.of(context).primaryColor,
-                child: const Text('Change'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+   _buildPostCode(BuildContext context) {
+   return showDialog(context:context,
+   builder:(BuildContext context){
+     return new AlertDialog(
+       title: const Text('Change your Post Code'),
+       content: Column(
+         mainAxisSize: MainAxisSize.min,
+         crossAxisAlignment: CrossAxisAlignment.center,
+         children: <Widget>[
+           TextFormField(
+             keyboardType: TextInputType.numberWithOptions(),
+             decoration: InputDecoration(
+               hintText: 'Enter new Post Code',
+             ),
+           ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: <Widget>[
+               FlatButton(
+                   child: Text('cancel'),
+                   onPressed: () {
+                     Navigator.of(context).pop();
+                   }),
+               FlatButton(
+                 onPressed: () {
+                   //Navigator.of(context).pop();
+                 },
+                 textColor: Theme.of(context).primaryColor,
+                 child: const Text('Change'),
+               ),
+             ],
+           ),
+         ],
+       ),
+     );
+   });
   }
 
-  Widget _buildCity(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('Change your City'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: 'Enter new Post Code',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                  child: Text('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                onPressed: () {
-                  //Navigator.of(context).pop();
-                },
-                textColor: Theme.of(context).primaryColor,
-                child: const Text('Change'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+   _buildCity(BuildContext context) {
+   return showDialog(context: context,
+     builder:(BuildContext context){
+       return new AlertDialog(
+         title: const Text('Change your City'),
+         content: SingleChildScrollView(
+           child: ListBody(
+             children: <Widget>[
+               TextFormField(
+                 decoration: InputDecoration(
+                   hintText: 'Enter new Post Code',
+                 ),
+               ),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   FlatButton(
+                       child: Text('cancel'),
+                       onPressed: () {
+                         Navigator.of(context).pop();
+                       }),
+                   FlatButton(
+                     onPressed: () {
+                       //Navigator.of(context).pop();
+                     },
+                     textColor: Theme.of(context).primaryColor,
+                     child: const Text('Change'),
+                   ),
+                 ],
+               ),
+             ],
+           ),
+         ),
+       );
+     }
+   );
   }
 }
 

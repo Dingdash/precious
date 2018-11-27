@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/foundation.dart';
 import '../utils/config.dart' as c;
 import 'package:http/http.dart'as http;
 import 'dart:async';
@@ -64,7 +63,7 @@ class Categories extends StatelessWidget {
   Future<List<Category>> getCategories() async {
     //logic for fetching remote data
     var response = await http
-        .get(c.base_url+'precious/categories/all');
+        .get(c.base_url+'/categories/all');
     var parsed =  json.decode(response.body).cast<Map<String,dynamic>> () ;
     parsed.forEach((cat){
       Category  cc = new Category(name: cat['name'],id:cat['category_id'].toString(),imgurl: 'tes');

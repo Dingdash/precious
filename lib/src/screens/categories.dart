@@ -39,7 +39,7 @@ class Categories extends StatelessWidget {
                             '/' +
                             product.id.toString());
                   },
-                  child: Center(child: Text(product.name)),
+                  child: Center(child: Text('tes')),
                 ),
               );
             }).toList(),

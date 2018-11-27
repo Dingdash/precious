@@ -100,7 +100,7 @@ class ProductScopedModel extends Model {
     //logic for fetching remote data
     var response = await http
         .get(
-            c.base_url+'precious/products/all/$categoryId?page=$pageIndex')
+            c.base_url+'/products/all/$categoryId?page=$pageIndex')
         .catchError((error) {
       return false;
     });

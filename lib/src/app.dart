@@ -9,7 +9,7 @@ import 'screens/product_detail.dart';
 import 'screens/products.dart';
 import 'screens/search.dart';
 import 'screens/wishlist.dart';
-
+import 'screens/register.dart';
 
 ThemeData _buildPreciousTheme(context) {
 
@@ -89,6 +89,10 @@ class App extends StatelessWidget {
     } else if (settings.name == '/Personalinfo') {
       return MaterialPageRoute(builder: (context) {
         return PersonalInfo();
+      });
+    }else if (settings.name == '/register'){
+      return MaterialPageRoute(builder:(context){
+        return RegisterForm();
       });
     }
   }

@@ -13,7 +13,7 @@ class ProductDetailModel extends Model {
   Future<dynamic> _getProduct(int id) async {
     //logic for fetching remote data
     var response = await http
-        .get(c.base_url + 'precious/products/$id')
+        .get(c.base_url + '/products/$id')
         .catchError((error) {
       return false;
     });

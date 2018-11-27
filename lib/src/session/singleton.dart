@@ -92,6 +92,7 @@ class UserModel extends Model{
     _address=null;
     _email=null;_password=null;_gender=null;_city=null;_telp=null;_postCode=null;
     loggedin = false;
+    print("logout");
     notifyListeners();
   }
 

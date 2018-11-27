@@ -85,7 +85,6 @@ class ProductDetail extends StatelessWidget {
                   /* child: model.item.variant.length > 0
                         ? Text('ada')
                         : Text('tidak ada'),*/
-
                   SizedBox(
                     height: 20.0,
                   ),

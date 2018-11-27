@@ -8,6 +8,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/loginModel.dart';
 import '../session/singleton.dart';
 import '../utils/config.dart' as c;
+import '../widgets/dialog.dart';
 
 class Login extends StatelessWidget {
 
@@ -38,44 +39,42 @@ class Login extends StatelessWidget {
                     Text('View Password'),
                   ],
                 ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    ButtonTheme(
-                      minWidth: 120.0,
-                      height: 45.0,
-                      child: RaisedButton(
-                        color: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24.0)),
-                        elevation: 5.0,
-                        child: Text(
-                          'LOGIN',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          getLogin(
-                              loginmodel.user, loginmodel.password, context);
-                        },
-                      ),
+                ButtonTheme(
+                  minWidth: 120.0,
+                  height: 45.0,
+                  child: RaisedButton(
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+                    elevation: 5.0,
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    ButtonTheme(
-                      minWidth: 120.0,
-                      height: 45.0,
-                      child: RaisedButton(
-                        color: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24.0)),
-                        elevation: 5.0,
-                        child: Text(
-                          'REGISTER',
-                          style: TextStyle(color: Colors.white),
-                          textScaleFactor: 1.0,
-                        ),
-                        onPressed: () {},
-                      ),
+                    onPressed: () {
+                      getLogin(
+                          loginmodel.user, loginmodel.password, context);
+                    },
+                  ),
+                ),
+
+                ButtonTheme(
+                  minWidth: 120.0,
+                  height: 45.0,
+                  child: FlatButton(
+                    //color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+
+                    child: Text(
+                      'Create Account',
+                      style: TextStyle(color: Colors.black),
+                      textScaleFactor: 1.0,
                     ),
-                  ],
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/register');
+                    },
+                  ),
                 ),
               ],
             ),
@@ -134,8 +133,11 @@ class Login extends StatelessWidget {
 
 Future<String> getLogin(
     String username, String password, BuildContext context) async {
+  Dialogs d = new Dialogs();
+  print(username);
+  print(password);
   var response =
-      await http.post(Uri.encodeFull(c.base_url + "precious/user"), headers: {
+      await http.post(Uri.encodeFull(c.base_url + "/user"), headers: {
     "Accept": "application/json"
   }, body: {
     'username': username,
@@ -147,8 +149,9 @@ Future<String> getLogin(
     } else {
       JsonDecoder decoder = new JsonDecoder();
       dynamic result = decoder.convert(json);
-      // print('Response: ${result['data']}');
+
       if (result['exit'] == false) {
+
         session.setFirstname(result['data']['first_name'] ?? null);
         session.setLastname(result['data']['last_name'] ?? null);
         session.setUsername(username);
@@ -163,7 +166,10 @@ Future<String> getLogin(
           Navigator.of(context).pushReplacementNamed('/home');
           // Navigator.of(context).pushReplacementNamed('/personalinfo');
         }
-      }
+      }else
+        {
+          d.information(context, "Login Failed", result['message']);
+        }
     }
   });
 }
