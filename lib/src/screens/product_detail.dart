@@ -1,18 +1,17 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import'package:intl/intl.dart';
 import '../models/productDetailModel.dart';
 
 class ProductDetail extends StatelessWidget {
   ProductDetailModel model = new ProductDetailModel();
+  final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
   TextStyle white = new TextStyle(
       inherit: false, color: Colors.white, decorationColor: Colors.white);
-
   Widget build(BuildContext context) {
     model.parseFromResponse(1);
     return Scaffold(
-
       appBar: AppBar(
         actions: <Widget>[
           IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {},),
@@ -27,6 +26,8 @@ class ProductDetail extends StatelessWidget {
                 height: 300.0,
                 child: Carousel(
                   images: [
+
+
                     NetworkImage(
                         'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
                     NetworkImage(
@@ -49,12 +50,17 @@ class ProductDetail extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
+
                   Text(
-                      'Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse'),
+                      'Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse'),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text('Rp 200.000'),
+                  ScopedModelDescendant<ProductDetailModel>(
+                    builder:(context,child,model)=>
+                        model.selectedVariant!=null?Text('${formatCurrency.format(int.parse(model.selectedVariant.Specification_price))}'):Text('Loading..')
+                  ),
+
                   SizedBox(
                     height: 20.0,
                   ),

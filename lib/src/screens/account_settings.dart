@@ -6,7 +6,10 @@ import '../session/singleton.dart';
 import '../../main.dart';
 import '../models/loginModel.dart';
 import '../api/UserAPI.dart';
+import '../widgets/checkbox_widget.dart';
 class AccountSettings extends StatelessWidget {
+
+
   UserAPI api = UserAPI();
   Widget build(context) {
     return Scaffold(
@@ -70,8 +73,9 @@ class AccountSettings extends StatelessWidget {
                       }
 
                 },
-                child: Text('LOG OUT'),
+                child: Text('LOG OUT',style:TextStyle(color: Colors.white)),
                 fillColor: Colors.red,
+
               )
             ],
           ),
@@ -92,7 +96,7 @@ class AccountSettings extends StatelessWidget {
         title: Text('Change Password'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
               obscureText: true,
@@ -107,11 +111,12 @@ class AccountSettings extends StatelessWidget {
               decoration: InputDecoration(hintText: 'Password Confirmation'),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Checkbox(
-                  value: true,
-                  onChanged: (resp) {},
-                ),
+                renderCekbox(value:false,onChanged: (value){
+                  print(value);
+                },),
+
                 Text('View Password'),
               ],
             ),
@@ -143,6 +148,7 @@ class AccountSettings extends StatelessWidget {
   }
 
   Widget _buildChangeEmail(BuildContext context) {
+
     return new AlertDialog(
       title: const Text('Change your email address'),
       content: Column(
@@ -159,10 +165,10 @@ class AccountSettings extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              Checkbox(
-                value: true,
-                onChanged: (resp) {},
-              ),
+
+              renderCekbox(value: false,onChanged: (value){
+
+              },),
               Text('View Password'),
             ],
           ),
@@ -201,4 +207,7 @@ class AccountSettings extends StatelessWidget {
       ),
     );
   }
+
+
 }
+

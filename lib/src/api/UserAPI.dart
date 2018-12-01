@@ -16,7 +16,7 @@ class UserAPI {
     headers['Accept'] = "application/json";
     Map<String, String> body = Map<String, String>();
     body['password'] = newpass;
-    var resp = await http.post(url + "/password", headers: headers, body: body)
+    await http.post(url + "/password", headers: headers, body: body)
         .timeout(Duration(seconds: 20), onTimeout: () {
       string = "timedout";
     }).catchError((e) {
@@ -34,7 +34,7 @@ class UserAPI {
     headers['Accept'] = "application/json";
     Map<String, String> body = Map<String, String>();
     body['first_name'] = name;
-    var resp = await http.post(url + "/firstname", headers: headers, body: body)
+    await http.post(url + "/firstname", headers: headers, body: body)
         .timeout(Duration(seconds: 20), onTimeout: () {
       string = "timedout";
     }).catchError((e) {
@@ -54,7 +54,7 @@ Future<dynamic> changeSurName(String name) async {
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['first_name'] = name;
-  var resp = await http.post(url + "/firstname", headers: headers, body: body)
+  await http.post(url + "/firstname", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -72,7 +72,7 @@ Future<dynamic> changeGender(String gender) async {
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['gender'] = gender;
-  var resp = await http.post(url + "/gender", headers: headers, body: body)
+  await http.post(url + "/gender", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -93,7 +93,7 @@ Future<dynamic> changeAddress(String address) async {
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['address'] = address;
-  var resp = await http.post(url + "/address", headers: headers, body: body)
+   await http.post(url + "/address", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -112,7 +112,7 @@ Future<dynamic>changePostCode(String postcode) async{
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['postcode'] = postcode;
-  var resp = await http.post(url + "/postcode", headers: headers, body: body)
+  await http.post(url + "/postcode", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -129,7 +129,7 @@ Future<dynamic>changePhone(String phone)async{
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['telp'] = phone;
-  var resp = await http.post(url + "/telp", headers: headers, body: body)
+  await http.post(url + "/telp", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -146,7 +146,7 @@ Future<dynamic>changeCity(String city)async {
   headers['Accept'] = "application/json";
   Map<String, String> body = Map<String, String>();
   body['city'] = city;
-  var resp = await http.post(url + "/city", headers: headers, body: body)
+  await http.post(url + "/city", headers: headers, body: body)
       .timeout(Duration(seconds: 20), onTimeout: () {
     string = "timedout";
   }).catchError((e) {
@@ -157,5 +157,6 @@ Future<dynamic>changeCity(String city)async {
   });
   return string;
 }
+
 
 }

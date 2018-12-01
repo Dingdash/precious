@@ -72,7 +72,7 @@ class App extends StatelessWidget {
       });
     } else if (settings.name == '/search') {
       return MaterialPageRoute(builder: (context) {
-        return Search();
+        return SearchState();
       });
     } else if (settings.name.contains('/product')) {
       return MaterialPageRoute(builder: (context) {
@@ -94,6 +94,8 @@ class App extends StatelessWidget {
       return MaterialPageRoute(builder:(context){
         return RegisterForm();
       });
+    }else{
+      return null;
     }
   }
 }

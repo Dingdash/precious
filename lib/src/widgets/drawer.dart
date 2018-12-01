@@ -26,7 +26,7 @@ class myDrawer extends StatelessWidget {
                 Text(session.getEmail,style: drawerTextStyle(),),
               ],
             ),
-            decoration: BoxDecoration(),
+            //decoration: BoxDecoration(),
           ),
           Divider(
             height: 15.0,

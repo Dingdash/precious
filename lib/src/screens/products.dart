@@ -20,7 +20,7 @@ class Products extends StatelessWidget {
         appBar: AppBar(
           title: Text(categoryname),
           leading: FlatButton(
-              child: Icon(Icons.arrow_back, color:  Colors.white,),
+              child: Icon(Icons.arrow_back_ios, color:  Colors.white,),
               onPressed: () {
                 Navigator.pop(context);
               }),
@@ -52,6 +52,8 @@ class Products extends StatelessWidget {
                   return buildSingleProduct(
                     model.productsList[index].name,
                     model.productsList[index].id,
+                    model.productsList[index].price
+
                   );
                 },
               ),
@@ -60,10 +62,11 @@ class Products extends StatelessWidget {
     );
   }
 
-  buildSingleProduct(String name, String id) {
+  buildSingleProduct(String name, String id,String price) {
     ProductCard card = ProductCard();
     card.name = name;
     card.id = id;
+    card.price = price;
     return card;
   }
 }
@@ -71,8 +74,9 @@ class Products extends StatelessWidget {
 class Product {
   String id;
   String name;
+  String price;
 
-  Product({this.id, this.name});
+  Product({this.id, this.name,this.price});
 }
 
 class ProductScopedModel extends Model {
@@ -116,9 +120,12 @@ class ProductScopedModel extends Model {
     dataFromResponse = dataFromResponse['data'] as List;
     dataFromResponse.forEach((newProduct) {
       //parse new product's details
+      //TODO GET PRICE FROM API
       Product product = new Product(
         id: newProduct["id"],
         name: newProduct["name"],
+        price: "200000",
+
       );
       currentProductCount += 1;
       addToProductsList(product);

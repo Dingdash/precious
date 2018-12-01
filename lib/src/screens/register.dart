@@ -1,51 +1,157 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import '../utils/config.dart' as c;
+import '../widgets/dialog.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
   RegisterPage createState() => RegisterPage();
-
 }
 
 class RegisterPage extends State<RegisterForm> {
-  final textfield1 = TextEditingController();
-  final textfield2 = TextEditingController();
+  final usernameField = TextEditingController();
+  final passwordField = TextEditingController();
+  final emailField = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
-    textfield1.dispose();
+    usernameField.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text('REGISTER'),),
+      appBar: AppBar(
+        title: Text('Register'),
+      ),
       body: Form(
-        key:_formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: InputDecoration(hintText: 'enter a new username'),
-
-            ),
-            TextFormField(
-              decoration: InputDecoration(hintText:'enter a new password'),
-            )
-          ],
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(hintText: 'enter email'),
+                controller: emailField,
+                validator: (val) => emailValidator(val),
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'enter a new username'),
+                controller: usernameField,
+                validator: (val) => usernameValidator(val),
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'enter a new password'),
+                obscureText: true,
+                controller: passwordField,
+                validator: (val) => passwordValidator(val),
+              ),
+              Center(
+                child: Buttonregister(),
+              )
+            ],
+          ),
         ),
       ),
-
     );
   }
-  void submitRegister()
-  {
-
+  Widget Buttonregister (){
+    return
+      ButtonTheme(
+        minWidth: 120.0,
+        height: 45.0,
+        child: RaisedButton(
+            color: Colors.black,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0)),
+            elevation: 5.0,
+            child: Text(
+              'Login',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: submitRegister,
+        ),
+      );
+  }
+  passwordValidator(String val) {
+    if (val.length < 6) {
+      return "Password must be at least 6 characters";
+    } else {
+      return null;
+    }
   }
 
+  usernameValidator(String val) {
+    if (val.length < 6) {
+      return "Username must be at least 6 characters";
+    } else {
+      return null;
+    }
+  }
+
+  emailValidator(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Enter Valid Email';
+    else
+      return null;
+  }
+
+  void submitRegister() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print(passwordField.text);
+      print(usernameField.text);
+      print(emailField.text);
+     register(usernameField.text, passwordField.text, emailField.text);
+    }
+  }
+
+  Future<String> register(
+
+      String username, String password, String email) async {
+    Dialogs d = new Dialogs();
+    var url = c.base_url + "/user/createuser";
+    String string;
+
+    Map<String, String> headers = Map<String, String>();
+    headers['Accept'] = "application/json";
+    Map<String, String> body = Map<String, String>();
+    body['username'] = username;
+    body['password'] = password;
+    body['email'] = email;
+    var resp = await http
+        .post(url, headers: headers, body: body)
+        .timeout(Duration(seconds: 6), onTimeout: () {
+      d.information(context, "Register Failed", "request timedout");
+    }).catchError((e) {
+      print(e.toString());
+    }).then((http.Response response) {
+      JsonDecoder decoder = new JsonDecoder();
+      String json = response.body;
+      if (json == null) {
+        return;
+      } else {
+        JsonDecoder decoder = new JsonDecoder();
+        dynamic result = decoder.convert(json);
+        if(result['message']!=null)
+          {
+            d.information(context, "Register Failed", result['message']);
+          }
+      }
+    });
+
+
+    return string;
+  }
 }
