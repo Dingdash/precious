@@ -5,16 +5,17 @@ import '../utils/config.dart' as c;
 
 class UserAPI {
 
-  final url = c.base_url + "precious/user/edituser";
+  final url = c.base_url + "user/edituser";
 
-  Future <dynamic> changePassword(String oldpass, String newpass) async
+  Future <dynamic> changePassword(String oldpass, String newpass,String username) async
   {
-    //print(newpass);
+
     var string;
     Map<String, String> headers = Map<String, String>();
 
     headers['Accept'] = "application/json";
     Map<String, String> body = Map<String, String>();
+    body['username'] = username;
     body['password'] = newpass;
     await http.post(url + "/password", headers: headers, body: body)
         .timeout(Duration(seconds: 20), onTimeout: () {
@@ -28,7 +29,7 @@ class UserAPI {
     return string;
   }
 
-  Future <dynamic> changeFirstName(String name) async {
+  Future <dynamic> changeFirstName(String name,String username) async {
     var string;
     Map<String, String> headers = Map<String, String>();
     headers['Accept'] = "application/json";

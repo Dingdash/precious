@@ -30,6 +30,7 @@ class Categories extends StatelessWidget {
               return Material(
                 color: Colors.red,
                 child: InkWell(
+                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   onTap: () {
                     // Navigator.of(context).pushReplacementNamed('/home');
                     Navigator.pushNamed(

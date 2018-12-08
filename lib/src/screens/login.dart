@@ -24,6 +24,7 @@ class Login extends StatelessWidget {
             ),
             CircleAvatar(
                 radius: 74.0,
+               //backgroundColor: Colors.redAccent,
                 backgroundColor: Color.fromRGBO(255, 255, 255, 0.0),
                 child: Image.asset('assets/images/preciousnobg.png')),
             SizedBox(height: 70.0),
@@ -199,6 +200,9 @@ Future<String> getLogin(
       dynamic result = decoder.convert(json);
 
       if (result['exit'] == false) {
+        String id = result['data']['id'].toString();
+
+        session.setUID(id);
         session.setFirstname(result['data']['first_name'] ?? null);
         session.setLastname(result['data']['last_name'] ?? null);
         session.setUsername(username);

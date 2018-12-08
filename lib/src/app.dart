@@ -7,12 +7,12 @@ import 'screens/login.dart';
 import 'screens/personal_info.dart';
 import 'screens/product_detail.dart';
 import 'screens/products.dart';
+import 'screens/register.dart';
 import 'screens/search.dart';
 import 'screens/wishlist.dart';
-import 'screens/register.dart';
-
+import 'session/singleton.dart';
+import 'screens/cart.dart';
 ThemeData _buildPreciousTheme(context) {
-
   final ThemeData base = ThemeData(fontFamily: 'sjsecret');
   return base.copyWith(
     canvasColor: canvasColor,
@@ -26,8 +26,6 @@ ThemeData _buildPreciousTheme(context) {
     errorColor: Colors.black,
     highlightColor: primaryColor,
     splashColor: primaryColor,
-
-
 
     // TODO: Add the text themes (103)
     // TODO: Add the icon themes (103)
@@ -55,7 +53,7 @@ class App extends StatelessWidget {
       });
     } else if (settings.name == '/personalinfo') {
       return MaterialPageRoute(builder: (context) {
-        return PersonalInfo();
+        return PinfoState();
       });
     } else if (settings.name.contains('/categories')) {
       return MaterialPageRoute(builder: (context) {
@@ -84,17 +82,23 @@ class App extends StatelessWidget {
       });
     } else if (settings.name == '/settings') {
       return MaterialPageRoute(builder: (context) {
-        return AccountSettings();
+        return AccountSetting();
       });
     } else if (settings.name == '/Personalinfo') {
       return MaterialPageRoute(builder: (context) {
-        return PersonalInfo();
+        return PinfoState();
       });
-    }else if (settings.name == '/register'){
-      return MaterialPageRoute(builder:(context){
+    } else if (settings.name == '/register') {
+      return MaterialPageRoute(builder: (context) {
         return RegisterForm();
       });
-    }else{
+    }else if (settings.name.contains('/cart')){
+      return MaterialPageRoute(builder:(context){
+        int uid = int.parse(session.getuID);
+
+        return FavoriteWidget(uid);
+      });
+    } else {
       return null;
     }
   }

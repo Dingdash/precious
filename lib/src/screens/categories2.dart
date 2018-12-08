@@ -24,6 +24,11 @@ class Categories extends StatelessWidget {
   }
 
   Widget CategoriesTile(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
     return FutureBuilder<List<Category>>(
             future: getCategories(),
             builder: (context,snapshot){
@@ -38,10 +43,13 @@ class Categories extends StatelessWidget {
                   else
                     return GridView.count(
                     crossAxisCount: 2,
-                    children: snapshot.data.map((product) {
+                      shrinkWrap: true,
+                      childAspectRatio: (itemWidth / itemHeight),
+                      children: snapshot.data.map((product) {
                       return Material(
-                        color: Colors.red,
+                        color: Colors.white,
                         child: InkWell(
+
                           onTap: () {
                             // Navigator.of(context).pushReplacementNamed('/home');
                             Navigator.pushNamed(
@@ -65,9 +73,6 @@ class Categories extends StatelessWidget {
     var response = await http
         .get(c.base_url+'/categories/all');
     var parsed =  json.decode(response.body).cast<Map<String,dynamic>> () ;
-    parsed.forEach((cat){
-      Category  cc = new Category(name: cat['name'],id:cat['category_id'].toString(),imgurl: 'tes');
-    });
     return parsed.map<Category>((json)=> Category.fromJson(json)).toList();
   }
 }

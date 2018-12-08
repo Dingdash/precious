@@ -7,19 +7,27 @@ import '../../main.dart';
 import '../models/loginModel.dart';
 import '../api/UserAPI.dart';
 import '../widgets/checkbox_widget.dart';
-class AccountSettings extends StatelessWidget {
+import '../widgets/dialog.dart';
+class AccountSetting extends StatefulWidget{
+  @override
+  AccountSettings createState() => AccountSettings();
+}
+class AccountSettings extends State<AccountSetting> {
 
-
+Dialogs d = new Dialogs();
   UserAPI api = UserAPI();
   Widget build(context) {
-    return Scaffold(
-          body: buildList(context),
-          drawer: myDrawer(),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('Account Settings'),
+    return ScopedModel<UserModel>(
+      model: session,
+      child: Scaffold(
+            body: buildList(context),
+            drawer: myDrawer(),
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text('Account Settings'),
+            ),
           ),
-        );
+    );
   }
 
   Widget buildList(BuildContext context) {
@@ -28,19 +36,40 @@ class AccountSettings extends StatelessWidget {
         SizedBox(
           height: 10.0,
         ),
-        ListTile(
-          title: Text('username'),
-          subtitle: Text('youglh@example.com\nMale\nUser ID:2472378'),
-          onTap: () {},
+        ScopedModelDescendant<UserModel>(
+
+
+          builder: (builder,child,context)=>
+              ListTile(
+                title: Text(session.getUsername),
+                subtitle: Text("${session.getEmail}\n ${session.getGender} \n"),
+                onTap: () {},
+              ),
         ),
+
         buildDivider(10.0),
-        ListTile(
-            title: Text('Change your email address'),
-            onTap: () {
-              showDialog(
+        ScopedModelDescendant<UserModel>(
+
+
+          builder: (builder,child,ctx)=>
+              ListTile(
+                title: Text('Change your email address'),
+                onTap: (){
+//                  session.setEmail("youglh@ewew.com");
+//                  session.notifyListeners();
+                  showDialog(
                   context: context,
                   builder: (_) => _buildChangeEmail(context));
-            }),
+//            }
+                },
+//            onTap: () {
+//              showDialog(
+//                  context: context,
+//                  builder: (_) => _buildChangeEmail(context));
+//            }
+              ),
+        ),
+
         ListTile(
           title: Text('Change Password'),
             onTap: () {
@@ -92,6 +121,9 @@ class AccountSettings extends StatelessWidget {
   }
 
   Widget _buildChangePassword(BuildContext context) {
+    TextEditingController oldpass = new TextEditingController();
+    TextEditingController newpass = new TextEditingController();
+    TextEditingController confirmpass = new TextEditingController();
     return AlertDialog(
         title: Text('Change Password'),
         content: Column(
@@ -101,25 +133,19 @@ class AccountSettings extends StatelessWidget {
             TextFormField(
               obscureText: true,
               decoration: InputDecoration(hintText: 'Old password'),
+              controller: oldpass,
             ),
             TextFormField(
               obscureText: true,
               decoration: InputDecoration(hintText: 'New password'),
+              controller: newpass,
             ),
             TextFormField(
               obscureText: true,
               decoration: InputDecoration(hintText: 'Password Confirmation'),
+              controller: confirmpass,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                renderCekbox(value:false,onChanged: (value){
-                  print(value);
-                },),
 
-                Text('View Password'),
-              ],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -130,13 +156,33 @@ class AccountSettings extends StatelessWidget {
                     }),
                 FlatButton(
                   onPressed: () async{
-                 await  api.changePassword("haha", "hehe").then((value){if(value['exit']==false){
-                  print(value['message']);
-                 }else if (value=="timedout")
-                   {
-                     // timedout
-                   }
-                 });
+                    if(oldpass.text != session.getPassword){
+                      oldpass.clear();
+                      newpass.clear();
+                      confirmpass.clear();
+                    }else if (confirmpass.text!= newpass.text)
+                      {
+                        d.information(context, "Info", "Confirmpassword and new password must have the same value");
+
+
+                      }else if(confirmpass.text.length<6)
+                        {
+                          d.information(context, "Info", "password should be more than 6 characters");
+
+
+                        }else
+                          {
+                            await  api.changePassword(oldpass.text, newpass.text,loginmodel.user).then((value){if(value['exit']==false){
+                              Navigator.of(context).pop();
+                              d.information(context, "Info", value['message']);
+                              session.setPassword(newpass.text);
+                            }else if (value=="timedout")
+                            {
+                              // timedout
+                            }
+                            });
+                          }
+
                   },
                   textColor: Theme.of(context).primaryColor,
                   child: const Text('Change'),

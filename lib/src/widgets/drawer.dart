@@ -49,7 +49,10 @@ class myDrawer extends StatelessWidget {
           ListTile(
             leading: buildIcon(Icons.shopping_cart),
             title: Text("Cart",style: drawerTextStyle(),),
-            onTap: () {},
+            onTap: () {
+
+              Navigator.of(context).pushReplacementNamed('/cart');
+            },
           ),
           ListTile(
             leading: buildIcon(Icons.card_giftcard),

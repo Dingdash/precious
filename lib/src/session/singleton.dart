@@ -6,7 +6,7 @@ import 'package:scoped_model/scoped_model.dart';
 class UserModel extends Model{
 
 
-  String _username, _first_name,_last_name,_birthdate,_address,_email,_password,_gender,_city,_telp,_postCode;
+  String _username, _first_name,_last_name,_birthdate,_address,_email,_password,_gender,_city,_telp,_postCode,_uID;
   bool loggedin = false;
   String get getUsername => _username;
   String get getFirstname => _first_name;
@@ -17,9 +17,16 @@ class UserModel extends Model{
   String get getGender => _gender;
   String get getPostcode => _postCode;
   String get getCity => _city;
+  String get getuID =>_uID;
+
   void signIn()
   {
     loggedin = true;
+  }
+  void setUID(String val)
+  {
+
+    _uID = val;
   }
   void setUsername(String val)
   {

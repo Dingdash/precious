@@ -53,6 +53,9 @@ class RegisterPage extends State<RegisterForm> {
                 controller: passwordField,
                 validator: (val) => passwordValidator(val),
               ),
+              SizedBox(
+                height: 20.0,
+              ),
               Center(
                 child: Buttonregister(),
               )
@@ -73,7 +76,7 @@ class RegisterPage extends State<RegisterForm> {
                 borderRadius: BorderRadius.circular(24.0)),
             elevation: 5.0,
             child: Text(
-              'Login',
+              'Register',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: submitRegister,
