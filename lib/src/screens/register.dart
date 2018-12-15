@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../utils/config.dart' as c;
 import '../widgets/dialog.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class RegisterPage extends State<RegisterForm> {
 
   @override
   void dispose() {
+    emailField.dispose();
+    passwordField.dispose();
     usernameField.dispose();
     super.dispose();
   }
@@ -100,22 +103,31 @@ class RegisterPage extends State<RegisterForm> {
   }
 
   emailValidator(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter Valid Email';
-    else
-      return null;
+     String email = value;
+    final bool isValid = EmailValidator.validate(email);
+    if(isValid)
+      {
+        return null;
+      }else
+        {
+          return 'Enter a valid email';
+        }
+    print('Email is valid? ' + (isValid ? 'yes' : 'no'));
+//    final bool isValid = EmailValidator.validate(value);
+//    if(isValid){
+//      return null;
+//    }else
+//      {
+//        'Enter a valid email';
+//      }
+
   }
 
   void submitRegister() {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
-      print(passwordField.text);
-      print(usernameField.text);
-      print(emailField.text);
+
      register(usernameField.text, passwordField.text, emailField.text);
     }
   }

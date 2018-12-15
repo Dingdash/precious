@@ -8,6 +8,7 @@ import '../models/loginModel.dart';
 import '../api/UserAPI.dart';
 import '../widgets/checkbox_widget.dart';
 import '../widgets/dialog.dart';
+import 'package:email_validator/email_validator.dart';
 class AccountSetting extends StatefulWidget{
   @override
   AccountSettings createState() => AccountSettings();
@@ -42,7 +43,7 @@ Dialogs d = new Dialogs();
           builder: (builder,child,context)=>
               ListTile(
                 title: Text(session.getUsername),
-                subtitle: Text("${session.getEmail}\n ${session.getGender} \n"),
+                subtitle: Text("${session.getEmail} \n"),
                 onTap: () {},
               ),
         ),
@@ -157,9 +158,11 @@ Dialogs d = new Dialogs();
                 FlatButton(
                   onPressed: () async{
                     if(oldpass.text != session.getPassword){
+
                       oldpass.clear();
                       newpass.clear();
                       confirmpass.clear();
+                      d.information(context, "Info","please insert your old password correctly");
                     }else if (confirmpass.text!= newpass.text)
                       {
                         d.information(context, "Info", "Confirmpassword and new password must have the same value");
@@ -194,7 +197,9 @@ Dialogs d = new Dialogs();
   }
 
   Widget _buildChangeEmail(BuildContext context) {
-
+    TextEditingController oldpass = new TextEditingController();
+    TextEditingController newemail = new TextEditingController();
+    TextEditingController confirmemail = new TextEditingController();
     return new AlertDialog(
       title: const Text('Change your email address'),
       content: Column(
@@ -208,14 +213,11 @@ Dialogs d = new Dialogs();
 
               //errorText: 'enter valid email',
             ),
+            controller: oldpass,
           ),
           Row(
             children: <Widget>[
 
-              renderCekbox(value: false,onChanged: (value){
-
-              },),
-              Text('View Password'),
             ],
           ),
           TextFormField(
@@ -224,6 +226,7 @@ Dialogs d = new Dialogs();
 
               //errorText: 'enter valid email',
             ),
+            controller: newemail,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -231,6 +234,7 @@ Dialogs d = new Dialogs();
 
               //errorText: 'enter valid email',
             ),
+            controller: confirmemail,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,6 +246,33 @@ Dialogs d = new Dialogs();
                   }),
               FlatButton(
                 onPressed: () {
+                  if(oldpass.text != session.getPassword)
+                    {
+                      d.information(context, "info", "Please insert your old password on passwordfield correctly");
+                    }else if(newemail.text.isEmpty){
+                    d.information(context, "info", "Please enter a valid email");
+
+                  }else if(newemail.text !=confirmemail.text)
+                    {
+                      d.information(context, "info", "Confirm Email and New Email must have the same value");
+                    }
+                  else if(EmailValidator.validate(newemail.text)){
+
+                    api.changeEmail(newemail.text,session.getUsername).then((value){
+                      print(value);
+                      if(value['exit']==false)
+                        {
+                          d.information(context, "Info", value['message']);
+                          session.setEmail(newemail.text);
+                          Navigator.of(context).pop();
+
+                        }
+
+                    });
+                  }else
+                    {
+                      d.information(context, "info", "Please enter a valid email");
+                    }
                   //Navigator.of(context).pop();
                 },
                 textColor: Theme.of(context).primaryColor,

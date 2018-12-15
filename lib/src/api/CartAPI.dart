@@ -43,6 +43,14 @@ class CartAPI {
     });
     return string;
   }
+  Future<dynamic>addtoWishlist(int productid,int userid)async{
+    var string;
+    await http
+        .get(c.base_url + '/user/wishlist/add/'+productid.toString()+"/"+userid.toString()).then((response){
+      string = json.decode(response.body);
+    });
+    return string;
+  }
 }
 
 class CartItems{

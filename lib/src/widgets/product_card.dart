@@ -5,6 +5,7 @@ class ProductCard extends StatelessWidget {
   String src;
   String id;
   String price;
+  String cover;
 
   final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
 
@@ -53,7 +54,9 @@ class ProductCard extends StatelessWidget {
                 RawMaterialButton(
                   child: Text('View Details'),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/products/' + id);
+                    // TODO CHANGE PRODUCT ID FROM DATAbase
+                    Navigator.of(context).pushNamed('/products/'+"1");
+                    //Navigator.of(context).pushNamed('/products/'+id);
                   },
                 ),
               ],

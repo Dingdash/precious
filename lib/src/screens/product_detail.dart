@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import'package:intl/intl.dart';
 import '../models/productDetailModel.dart';
-
+import '../api/CartAPI.dart';
+import '../session/singleton.dart';
+import '../widgets/dialog.dart';
 class ProductDetail extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  CartAPI mycart = new CartAPI();
+  int productid;
   ProductDetailModel model = new ProductDetailModel();
+  ProductDetail({this.productid});
   final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
   TextStyle white = new TextStyle(
       inherit: false, color: Colors.white, decorationColor: Colors.white);
   Widget build(BuildContext context) {
-    model.parseFromResponse(1);
+    model.parseFromResponse(productid);
     return Scaffold(
+      key: _scaffoldkey,
       appBar: AppBar(
         actions: <Widget>[
           IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {},),
@@ -103,7 +110,10 @@ class ProductDetail extends StatelessWidget {
                     color: Color.fromRGBO(125, 17, 14, 1.0),
                     child: Text('Add to wishlist',
                       style: TextStyle(color: Colors.white),),
-                    onPressed: () {},
+                    onPressed: () {
+
+                      addtowishlist(context);
+                    },
                   ),
                 ],
               ),
@@ -118,10 +128,10 @@ class ProductDetail extends StatelessWidget {
                       child: RaisedButton(color: Colors.black,
                         child: Text('ADD TO CART',
                           style: TextStyle(color: Colors.white),),
-                        onPressed: () {},),
+                        onPressed: () {
+                        addtocart(context);
+                        },),
                     )
-
-
                 ),
 
               ],
@@ -131,7 +141,25 @@ class ProductDetail extends StatelessWidget {
       ),
     );
   }
+  addtocart(context){
+   mycart.uid = int.parse(session.getuID);
+   mycart.addtoCart(int.parse(session.getuID), productid, int.parse(model.selectedVariant.Specification_ID)).then((value){
+     Dialogs d = new Dialogs();
+     d.information(context, "Info", value['message']);
 
+   });
+  }
+  addtowishlist(context){
+    mycart.uid = int.parse(session.getuID);
+    mycart.addtoWishlist( productid, int.parse(session.getuID)).then((value){
+      Dialogs d = new Dialogs();
+      d.information(context, "Info", value['message']);
+
+    });
+  }
+  showSnackBar(String value){
+    final snackBar = new SnackBar(content: Text(value),duration: Duration(seconds: 2),);
+  }
   Widget buildSpec() {
 
 

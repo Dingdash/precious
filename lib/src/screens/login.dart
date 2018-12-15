@@ -4,12 +4,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
-
+//import '../smtp_server.dart';
 import '../models/loginModel.dart';
 import '../session/singleton.dart';
 import '../utils/config.dart' as c;
 import '../widgets/dialog.dart';
 import '../widgets/checkbox_widget.dart';
+import 'package:mailer/mailer.dart' as mailer;
+import 'package:mailer/smtp_server.dart';
 class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModel<LoginModel>(
@@ -67,7 +69,9 @@ class Login extends StatelessWidget {
                     ),
                     FlatButton(
                       child: Text("Forgot your Password?"),
-                      onPressed: (){},
+                      onPressed: (){
+                        sendEmail();
+                      },
 
                     )
                   ],
@@ -180,6 +184,22 @@ Future<String> getSearch() async {
     print(result['data']);
   });
 }
+sendEmail() async
+{
+//  final message = new mailer.Message()
+//    ..from = new mailer.Address("admin@preciousx.store")
+//    ..recipients.add('dafids321@gmail.com')
+//    ..subject = 'Test Dart Mailer library'
+//    ..text = 'This is the plain text.\nThis is line 2 of the text part.'
+//    ..html = "<h1>Test</h1>\n<p>Hey! Here's some HTML content</p>";
+//
+//  final sendReports = await mailer.send(message,SmtpServer('mail.preciousx.store',username: "admin@preciousx.store",password: "iftxmt43xa",name: "mail.preciousx.store",port: 465,ssl:true)).then((value){
+//    print("email sent");
+//  }).catchError((onError){
+//    print(onError.toString());
+//  });
+
+}
 
 Future<String> getLogin(
     String username, String password, BuildContext context) async {
@@ -208,7 +228,7 @@ Future<String> getLogin(
         session.setUsername(username);
         session.setPassword(password);
         session.setCity(result['data']['city'] ?? null);
-        session.setGender(result['data']['gender'] ?? null);
+        //session.setGender(result['data']['gender'] ?? null);
         session.setAddress(result['data']['address'] ?? null);
         session.setTelp(result['data']['telp'] ?? null);
         session.setEmail(result['data']['email'] ?? null);

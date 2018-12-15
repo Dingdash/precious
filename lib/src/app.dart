@@ -73,8 +73,10 @@ class App extends StatelessWidget {
         return SearchState();
       });
     } else if (settings.name.contains('/product')) {
+      var arr = settings.name.split('/');
+      final productid = arr[2];
       return MaterialPageRoute(builder: (context) {
-        return ProductDetail();
+        return ProductDetail(productid:int.parse(productid));
       });
     } else if (settings.name == '/wishlist') {
       return MaterialPageRoute(builder: (context) {
