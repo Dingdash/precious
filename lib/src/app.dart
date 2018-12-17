@@ -11,7 +11,7 @@ import 'screens/register.dart';
 import 'screens/search.dart';
 import 'screens/wishlist.dart';
 import 'session/singleton.dart';
-import 'screens/cart.dart';
+import 'screens/cart2.dart';
 ThemeData _buildPreciousTheme(context) {
   final ThemeData base = ThemeData(fontFamily: 'sjsecret');
   return base.copyWith(
@@ -36,7 +36,7 @@ ThemeData _buildPreciousTheme(context) {
 class App extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(
-      title: 'News!',
+      title: 'Preciousx',
       onGenerateRoute: routes,
       theme: _buildPreciousTheme(context),
     );
@@ -74,9 +74,10 @@ class App extends StatelessWidget {
       });
     } else if (settings.name.contains('/product')) {
       var arr = settings.name.split('/');
+
       final productid = arr[2];
       return MaterialPageRoute(builder: (context) {
-        return ProductDetail(productid:int.parse(productid));
+        return ProductDetail( productid);
       });
     } else if (settings.name == '/wishlist') {
       return MaterialPageRoute(builder: (context) {
@@ -96,9 +97,9 @@ class App extends StatelessWidget {
       });
     }else if (settings.name.contains('/cart')){
       return MaterialPageRoute(builder:(context){
-        int uid = int.parse(session.getuID);
+        String uid = (session.getuID);
 
-        return FavoriteWidget(uid);
+        return Cart(uid);
       });
     } else {
       return null;

@@ -7,7 +7,6 @@ import '../utils/config.dart' as c;
 class SearchState extends StatefulWidget {
   @override
   Search createState() => Search();
-
 }
 
 class Product {
@@ -127,13 +126,13 @@ class Search extends State<SearchState> {
   Future<dynamic> parseSearch(query,List categories) async {
 
     var dataFromResponse = await _getSearch(query,categories);
-    print(dataFromResponse['message']);
+    print(dataFromResponse['data']);
     dataFromResponse = dataFromResponse['data'] as List;
     dataFromResponse.forEach((newProduct) {
       //parse new product's details
       //TODO GET PRICE FROM API
       Product product = new Product(
-        id: newProduct["id"],
+        id: newProduct["Product_ID"],
         name: newProduct["Product_name"],
         price: "200000",
 
@@ -157,7 +156,7 @@ class Search extends State<SearchState> {
         title: TextField(controller:myquery,onChanged: (val) {
           searchProduct(myquery.text);
 
-        },),
+        },style: TextStyle(color: Colors.white),),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),

@@ -1,4 +1,4 @@
-name: preciousproject
+name: preciousX
 description: Selling Arts
 
 # The following defines the version and build number for your application.
@@ -14,8 +14,10 @@ environment:
 
 dependencies:
   flutter:
+
     sdk: flutter
   material_design_icons_flutter: ^3.0.39
+
   open_iconic_flutter: any
   carousel_pro: ^0.0.13
   sqflite:  0.12.2+1
@@ -32,8 +34,15 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.0"
+flutter_icons:
+  image_path_android:"assets/icon.png"
+  android:"icon"
+  ios:true
+
 
 
 # For information on the generic Dart part of this file, see the

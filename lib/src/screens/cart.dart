@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 
 import '../api/CartAPI.dart';
 import '../widgets/drawer.dart';
-
+import 'package:flutter/services.dart';
 class FavoriteWidget extends StatefulWidget {
-  int val;
+  String val;
 
-  FavoriteWidget(int value) {
+  FavoriteWidget(String value) {
     val = value;
   }
 
   @override
-  Cart createState() => Cart(value: val);
+  Cart createState() => Cart(value: val.toString());
 }
 
 class Cart extends State<FavoriteWidget> {
-  static int uid;
+  static String uid;
   bool load = true;
   Future<List<CartItems>> cartitems;
 
@@ -32,7 +32,7 @@ class Cart extends State<FavoriteWidget> {
     cartitems = fetchCarts();
   }
 
-  final CartAPI c = new CartAPI(uid: uid);
+  final CartAPI c = new CartAPI( uid);
 
   Future<List<CartItems>> fetchCarts() async {
 
@@ -227,6 +227,8 @@ class Cart extends State<FavoriteWidget> {
                         Navigator.of(context).pushReplacementNamed("/cart");
                       });
 
+                    }).whenComplete((){
+
                     });
 
                 },
@@ -262,6 +264,7 @@ class Cart extends State<FavoriteWidget> {
                     hintText: 'Enter new Quantity',
 
                   ),
+                  inputFormatters:[WhitelistingTextInputFormatter.digitsOnly],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

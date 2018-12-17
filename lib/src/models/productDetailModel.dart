@@ -10,7 +10,7 @@ class ProductDetailModel extends Model {
   ProductItem item = ProductItem();
   Variant selectedVariant;
   List<Spec> selectedspec = List<Spec>();
-  Future<dynamic> _getProduct(int id) async {
+  Future<dynamic> _getProduct(String id) async {
     //logic for fetching remote data
     var response = await http
         .get(c.base_url + '/products/$id')
@@ -20,6 +20,11 @@ class ProductDetailModel extends Model {
     //var data = json.decode(response.body);
 
     return json.decode(response.body);
+  }
+  ProductDetailModel(String id)
+  {
+    print(id);
+    parseFromResponse(id);
   }
   ChangeVariant(Variant value)
   {
@@ -40,35 +45,38 @@ class ProductDetailModel extends Model {
   {
 
     selectedVariant = item.variant[0];
-    notifyListeners();
     selectedspec = item.variant[0].spec;
     notifyListeners();
   }
-  Future parseFromResponse(int id) async {
+  Future parseFromResponse(String id) async {
 
     var dataFromResponse = await _getProduct(id);
     dataFromResponse = dataFromResponse['data'];
-      ProductItem tempitem = ProductItem();
+
+
       var variasi = dataFromResponse['variant'] as List;
-      variasi.forEach((varian) {
+    item.Product_name = dataFromResponse['Product_name'];
+    item.Product_ID = dataFromResponse['Product_ID'];
+    item.Product_description = dataFromResponse["Product_description"];
+
+    variasi.forEach((varian) {
         Variant v = Variant(
-            Specification_ID: varian['Specification_ID'],
-            Specification_name: varian['Specification_name'],
-            Specification_price: varian['Specification_price']);
+            Specification_ID: varian['Specification_ID']??"a",
+            Specification_name: varian['Specification_name']??"a",
+            Specification_price: varian['Specification_price'])??"a";
         var spek = varian['Specifications'] as List;
         spek.forEach((spec) {
           var s = Spec(
-              Specification_ID: spec['Specification_ID']??null,
-              name: spec['name']??null,
-              value: spec['value']??null);
+              Specification_ID: spec['Specification_ID']??"a",
+              name: spec['name']??"",
+              value: spec['value']??"");
           v.spec.add(s);
         });
-        tempitem.variant.add(v);
+        item.variant.add(v);
       });
-      tempitem.Product_name = dataFromResponse['Product_name'];
-      tempitem.Product_ID = dataFromResponse['Product_ID'];
-      item = tempitem;
-    notifyListeners();
+
+
+    //item = tempitem;
     loadFirst();
   }
 }
@@ -76,6 +84,7 @@ class ProductDetailModel extends Model {
 class ProductItem {
   String Product_ID;
   String Product_name;
+  String Product_description;
   List<Variant> variant = List<Variant>();
 }
 

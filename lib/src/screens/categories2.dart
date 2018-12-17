@@ -59,7 +59,13 @@ class Categories extends StatelessWidget {
                                     '/' +
                                     product.id.toString());
                           },
-                          child: Center(child: Text(product.name)),
+                          child: Card(color: Colors.white,child:Stack(children: <Widget>[SizedBox(
+                            height: itemHeight-30,
+                            child: SizedBox.expand(
+                                child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image:product.imgurl,fit: BoxFit.fill,)
+//
+                            ),
+                          ),Center(child:Text(product.name)),],) ),
                         ),
                       );
                     }).toList(),

@@ -23,7 +23,9 @@ class Wishlist extends StatelessWidget {
           builder: (context, child, model) =>
               model.wishlist.length<1?
               Container()
-             : ListTile(
+             :
+            ListView.builder(itemBuilder: (context,index){
+              return ListTile(
                 title: model.wishlist.length < 1
                     ? Text('is loading..')
                     : Text(model.wishlist[0].Product_name),
@@ -31,16 +33,14 @@ class Wishlist extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed('/products/' + model.wishlist[0].Product_ID);
                 },
-            trailing: RaisedButton(
-                onPressed: () {
-                 // c.uid = uid;
-
-                  _buildremoveitems(context,model.wishlist[0].Wishlist_ID);
-
-
-                },
-                child: Text('Remove')),
-              ),
+                trailing: RaisedButton(
+                    onPressed: () {
+                      // c.uid = uid;
+                      _buildremoveitems(context,model.wishlist[0].Wishlist_ID);
+                    },
+                    child: Text('Remove')),
+              );
+            },itemCount: model.wishlist.length,)
         ),
       ),
     );
@@ -65,20 +65,8 @@ class Wishlist extends StatelessWidget {
                     }),
                 FlatButton(
                   onPressed: () {
-
                   model.removewishlist(wishlistid);
-
                   Navigator.of(context).pop();
-                    //  c.uid = uid;
-
-//                  c.removeitems(cartid).then((value){
-//
-//                    Future.delayed(Duration(seconds: 5),(){
-//                      Navigator.of(context).pushReplacementNamed("/cart");
-//                    });
-//
-//                  });
-
                   },
                   textColor: Theme
                       .of(context)

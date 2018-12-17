@@ -228,6 +228,7 @@ Future<String> getLogin(
         session.setUsername(username);
         session.setPassword(password);
         session.setCity(result['data']['city'] ?? null);
+        session.setPostcode(result['data']['post_code']??null);
         //session.setGender(result['data']['gender'] ?? null);
         session.setAddress(result['data']['address'] ?? null);
         session.setTelp(result['data']['telp'] ?? null);

@@ -2,6 +2,15 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import '../utils/config.dart' as c;
 import 'dart:convert';
+
+
+
+class Wishlist{
+  String Wishlist_ID,Product_ID,User_ID,Category_ID,Product_name;
+  Wishlist({this.Wishlist_ID,this.Product_ID,this.User_ID,this.Category_ID,this.Product_name});
+}
+
+
 class wishlistModel extends Model{
   List<Wishlist> wishlist =List<Wishlist>();
   Future<dynamic> _getWishlist(String uid) async {
@@ -47,8 +56,4 @@ class wishlistModel extends Model{
     return string;
   }
 
-}
-class Wishlist{
-  String Wishlist_ID,Product_ID,User_ID,Category_ID,Product_name;
-  Wishlist({this.Wishlist_ID,this.Product_ID,this.User_ID,this.Category_ID,this.Product_name});
 }

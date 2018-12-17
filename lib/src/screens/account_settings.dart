@@ -38,13 +38,11 @@ Dialogs d = new Dialogs();
           height: 10.0,
         ),
         ScopedModelDescendant<UserModel>(
-
-
           builder: (builder,child,context)=>
               ListTile(
                 title: Text(session.getUsername),
                 subtitle: Text("${session.getEmail} \n"),
-                onTap: () {},
+
               ),
         ),
 

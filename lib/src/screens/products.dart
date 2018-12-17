@@ -52,7 +52,8 @@ class Products extends StatelessWidget {
                   return buildSingleProduct(
                     model.productsList[index].name,
                     model.productsList[index].id,
-                    model.productsList[index].price
+                    model.productsList[index].price,
+                    model.productsList[index].description, model.productsList[index].cover
 
                   );
                 },
@@ -62,11 +63,13 @@ class Products extends StatelessWidget {
     );
   }
 
-  buildSingleProduct(String name, String id,String price) {
+  buildSingleProduct(String name, String id,String price,String description,String cover) {
     ProductCard card = ProductCard();
     card.name = name;
     card.id = id;
     card.price = price;
+    card.description = description;
+    card.cover = cover;
     return card;
   }
 }
@@ -75,8 +78,10 @@ class Product {
   String id;
   String name;
   String price;
+  String description;
+  String cover;
 
-  Product({this.id, this.name,this.price});
+  Product({this.id, this.name,this.price,this.description,this.cover});
 }
 
 class ProductScopedModel extends Model {
@@ -124,7 +129,9 @@ class ProductScopedModel extends Model {
       Product product = new Product(
         id: newProduct["id"],
         name: newProduct["name"],
-        price: "200000",
+        price: "10",
+        description: newProduct['Product_description'],
+        cover: newProduct['cover']
 
       );
       currentProductCount += 1;

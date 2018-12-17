@@ -6,6 +6,7 @@ class ProductCard extends StatelessWidget {
   String id;
   String price;
   String cover;
+  String description;
 
   final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
 
@@ -27,7 +28,7 @@ class ProductCard extends StatelessWidget {
                     width: 400,
                     height: 200,
                     child: SizedBox.expand(
-                      child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image: "https://www.w3schools.com/w3css/img_lights.jpg",fit: BoxFit.fill,)
+                      child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image: "http://preciousx.store/images/"+cover??"https://www.w3schools.com/w3css/img_lights.jpg",fit: BoxFit.fitHeight,)
 //                    child: Image(
 //                      image: NetworkImage(
 //                          "https://www.w3schools.com/w3css/img_lights.jpg"),
@@ -45,7 +46,7 @@ class ProductCard extends StatelessWidget {
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                    'asdkfoaskfdoajdsok',overflow: TextOverflow.ellipsis,maxLines: 3,),
+                    description,overflow: TextOverflow.ellipsis,maxLines: 3,),
                 Container(
                   height: 8.0,
                 ),
@@ -54,8 +55,12 @@ class ProductCard extends StatelessWidget {
                 RawMaterialButton(
                   child: Text('View Details'),
                   onPressed: () {
-                    // TODO CHANGE PRODUCT ID FROM DATAbase
-                    Navigator.of(context).pushNamed('/products/'+"1");
+                      String products = "/products/P0001";
+                      var arr = products.split('/');
+
+                      final productid = arr[2];
+
+                    Navigator.of(context).pushNamed('/products/'+id);
                     //Navigator.of(context).pushNamed('/products/'+id);
                   },
                 ),

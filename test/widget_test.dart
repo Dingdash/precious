@@ -7,8 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:preciousproject/main.dart';
-import 'package:preciousproject/src/app.dart';
+import 'package:preciousX/main.dart';
+import 'package:preciousX/src/app.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.

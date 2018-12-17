@@ -8,15 +8,20 @@ import '../session/singleton.dart';
 import '../widgets/dialog.dart';
 class ProductDetail extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
-  CartAPI mycart = new CartAPI();
-  int productid;
-  ProductDetailModel model = new ProductDetailModel();
-  ProductDetail({this.productid});
+  CartAPI mycart = new CartAPI(session.getuID);
+  static String productid;
+  ProductDetailModel model;
+  ProductDetail(String id){
+
+
+    productid = id;
+   model = new ProductDetailModel(id);
+  }
   final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
   TextStyle white = new TextStyle(
       inherit: false, color: Colors.white, decorationColor: Colors.white);
   Widget build(BuildContext context) {
-    model.parseFromResponse(productid);
+    //model.parseFromResponse(productid);
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
@@ -51,21 +56,22 @@ class ProductDetail extends StatelessWidget {
                   ScopedModelDescendant<ProductDetailModel>(
                     builder: (context, child, model) =>
                     model.item.Product_name == null
-                        ? Text('is loading')
-                        : Text(model.item.Product_name),
-                  ),
-                  SizedBox(
-                    height: 20.0,
+                        ? Text("")
+                        : Text(model.item.Product_name,style: TextStyle(fontWeight: FontWeight.bold),),
                   ),
 
-                  Text(
-                      'Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conseLorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse Lorem ipsum dolor sit amet, conse'),
+                  ScopedModelDescendant<ProductDetailModel>(
+                    builder: (context, child, model) =>
+                    model.item.Product_description == null
+                        ? Text("")
+                        : Text(model.item.Product_description),
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
                   ScopedModelDescendant<ProductDetailModel>(
                     builder:(context,child,model)=>
-                        model.selectedVariant!=null?Text('${formatCurrency.format(int.parse(model.selectedVariant.Specification_price))}'):Text('Loading..')
+                        model.selectedVariant!=null?Text('${formatCurrency.format(int.parse(model.selectedVariant.Specification_price))}'):Text('')
                   ),
 
                   SizedBox(
@@ -74,7 +80,7 @@ class ProductDetail extends StatelessWidget {
                   Text('Variant'),
                   ScopedModelDescendant<ProductDetailModel>(
                     builder: (context, child, model) =>
-                    model.item.variant.length < 1
+                    model.item.variant.isEmpty
                         ? Text('is loading ..')
                         : Theme(
                       data: Theme.of(context).copyWith(
@@ -90,6 +96,7 @@ class ProductDetail extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (value) {
+
                           model.ChangeVariant(value);
                         },
                       ),
@@ -142,15 +149,15 @@ class ProductDetail extends StatelessWidget {
     );
   }
   addtocart(context){
-   mycart.uid = int.parse(session.getuID);
-   mycart.addtoCart(int.parse(session.getuID), productid, int.parse(model.selectedVariant.Specification_ID)).then((value){
+   mycart.uid = (session.getuID);
+   mycart.addtoCart((session.getuID), productid, (model.selectedVariant.Specification_ID)??"as").then((value){
      Dialogs d = new Dialogs();
      d.information(context, "Info", value['message']);
 
    });
   }
   addtowishlist(context){
-    mycart.uid = int.parse(session.getuID);
+    mycart.uid = (session.getuID);
     mycart.addtoWishlist( productid, int.parse(session.getuID)).then((value){
       Dialogs d = new Dialogs();
       d.information(context, "Info", value['message']);
@@ -165,10 +172,10 @@ class ProductDetail extends StatelessWidget {
 
     return  ScopedModelDescendant<ProductDetailModel>(
         builder: (context, child, model) =>
-        model.selectedVariant==null?Text('IS LOADING'):
+        model.selectedVariant==null?Text(''):
             Column(
                 children:
-                    model.selectedVariant.spec==null?Text("LOADING"):
+                    model.selectedVariant.spec==null?Text(""):
                 model.selectedVariant.spec.map((spec) {
                   return Row(children:<Widget>[
                     Container(
@@ -193,29 +200,6 @@ class ProductDetail extends StatelessWidget {
             ));
     //model.selectedVariant.spec.isEmpty? Text('loading')
 
-
-    /* Row(
-                          children: <Widget>[
-
-                            Container(
-                              height: 6.0,
-                              width: 10.0,
-                              decoration: new BoxDecoration(
-                                color: Colors.black,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 14.0,
-                            ),
-
-                            Expanded(
-                              child: model.selectedspec.isEmpty
-                                  ? Text('loading')
-                                  : Text(model.selectedspec[0].value+"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"),
-                            ),
-                          ],
-                        ),*/
 
 
   }
