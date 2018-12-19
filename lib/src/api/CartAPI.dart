@@ -64,6 +64,7 @@ class CartAPI {
     });
     return string;
   }
+
 }
 
 class CartItems{
@@ -71,12 +72,18 @@ class CartItems{
   String username;
   String product_id;
   String spec_id;
+  String spec_price;
   String qty;
-  CartItems({this.cartid,this.username,this.product_id,this.spec_id,this.qty});
+  String product_name;
+  String spec_name;
+  CartItems({this.cartid,this.username,this.product_id,this.spec_id,this.qty,this.spec_price,this.product_name,this.spec_name});
   factory CartItems.fromJson(Map<String, dynamic> json)
   {
     return CartItems(
-        cartid: json['Cart_ID'],username:(json["Username"]),product_id: json['Product_ID'],spec_id: json['Specification_ID'],qty: json['Qty']
+        cartid: json['Cart_ID'],username:(json["Username"]),product_id: json['Product_ID'],spec_id: json['Specification_ID'],qty: json['qty'],spec_price: json['Specification_price'],product_name: json['Product_name'],spec_name: json['Specification_name']
     );
+  }
+  getsubtotal(){
+    return int.parse(200.toString()) * int.parse(qty);
   }
 }

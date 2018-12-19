@@ -12,8 +12,6 @@ class ProductDetail extends StatelessWidget {
   static String productid;
   ProductDetailModel model;
   ProductDetail(String id){
-
-
     productid = id;
    model = new ProductDetailModel(id);
   }
@@ -38,7 +36,6 @@ class ProductDetail extends StatelessWidget {
                 height: 300.0,
                 child: Carousel(
                   images: [
-
 
                     NetworkImage(
                         'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),

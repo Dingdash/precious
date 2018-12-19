@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'screens/checkout.dart';
 import 'screens/account_settings.dart';
 import 'screens/categories2.dart';
 import 'screens/login.dart';
@@ -12,6 +13,9 @@ import 'screens/search.dart';
 import 'screens/wishlist.dart';
 import 'session/singleton.dart';
 import 'screens/cart2.dart';
+import 'screens/transaction.dart';
+
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 ThemeData _buildPreciousTheme(context) {
   final ThemeData base = ThemeData(fontFamily: 'sjsecret');
   return base.copyWith(
@@ -39,6 +43,7 @@ class App extends StatelessWidget {
       title: 'Preciousx',
       onGenerateRoute: routes,
       theme: _buildPreciousTheme(context),
+
     );
   }
 
@@ -101,6 +106,34 @@ class App extends StatelessWidget {
 
         return Cart(uid);
       });
+    }else if (settings.name.contains('/checkout')){
+      return MaterialPageRoute(builder:(context){
+        var arr = settings.name.split('/');
+        String url = arr[2];
+        print(url);
+        return CheckoutState(int.parse(url));
+      });
+    }else if (settings.name.contains('/transaction')){
+
+      return MaterialPageRoute(builder:(context){
+          return TransactionPage();
+      });
+
+    }else if (settings.name.contains('/webview')){
+      var arr = settings.name.split('/');
+      String url = arr[2];
+      return MaterialPageRoute(builder: (context) {
+        return WebviewScaffold(
+          url: "http://www.preciousx.store/INVOICE/index.php?invoice=${url}",
+          appBar: AppBar(
+            title: Text("Preciousx"),
+          ),
+          withJavascript: true,
+
+        );
+      });
+
+
     } else {
       return null;
     }

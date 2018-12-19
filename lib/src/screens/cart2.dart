@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:intl/intl.dart';
 import '../api/CartAPI.dart';
 import '../models/cartModel.dart';
 import '../widgets/drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 class Cart extends StatefulWidget {
   String val;
   Cart(String value) {
@@ -17,17 +18,17 @@ class Cart extends StatefulWidget {
 }
 class Mycart extends State<Cart> {
   static String uid;
-
+  int total =  0;
   bool load = true;
   cartModel model = new cartModel(uid);
- // List <CartItems> mymodel = new List<CartItems>();
+
   Mycart(String uid) {
     uid = uid;
     model.parseFromResponse(uid);
   }
 
   final CartAPI c = new CartAPI( uid);
-
+  final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
 
 
 
@@ -53,6 +54,8 @@ class Mycart extends State<Cart> {
                   itemBuilder: (BuildContext context, int index) {
                     return new Column(
                       children: <Widget>[
+                        index==0?
+                        Container(padding: EdgeInsets.only(top:5.0),child:Text("Total\n"+formatCurrency.format(getTotal()).toString(),textScaleFactor: 1.2,textAlign: TextAlign.center,)):Text(''),
                         new Container(
                           padding: EdgeInsets.only(left: 10.0, top: 20.0),
                           width: c_width,
@@ -68,21 +71,22 @@ class Mycart extends State<Cart> {
                                     fit: BoxFit.fill,
                                   )),
                               SizedBox(
-                                width: 10.0,
+                                width: 7.0,
                               ),
                               Container(
-                                width: c_width - 140,
+                                width: c_width - 130,
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      "GET THIS PRODUCT NAMweeeeeEee",
+                                      model.cart[index].product_name,
                                       textAlign: TextAlign.left,
                                     ),
-                                    Text("GET THIS PRODUCT VARIANT"),
-                                    Text("Qty : ${model.cart[index].qty}"),
-                                    SizedBox(height: 10.0),
-                                    Text("SUBTOTAL PRICE"),
-                                    SizedBox(height: 20.0),
+                                    Text(model.cart[index].spec_name),
+                                    Text("Qty: ${model.cart[index].qty}"),
+                                    Text("Each: ${formatCurrency.format(int.parse(model.cart[index].spec_price))}"),
+                                    SizedBox(height: 4.0),
+                                    Text('${formatCurrency.format(int.parse(model.cart[index].qty)*int.parse(model.cart[index].spec_price))}'),
+                                    SizedBox(height: 3.0),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -120,12 +124,40 @@ class Mycart extends State<Cart> {
                           ),
                         ),
                         SizedBox(height: 10.0),
+
                         new Divider(
                           height: 2.0,
+                          color: Colors.grey,
                         ),
+                        index==model.cart.length-1?
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RaisedButton(color: Colors.black,
+                                    child: Text('BUY NOW',
+                                      style: TextStyle(color: Colors.white),),
+                                    onPressed: () {
+                                    print(getTotal());
+                                    Navigator.of(context).pushNamed("/checkout/"+getTotal().toString());
+//
+
+                                      // addtocart(context);
+                                    },),
+                                )
+                            ),
+
+                          ],
+                        ):SizedBox(height: 0.0,width: 0.0,)
+
                       ],
+
                     );
                   },
+
                 ),
         ),
       ),
@@ -331,6 +363,25 @@ class Mycart extends State<Cart> {
           );
   }
 
+  getTotal()
+  {int total = 0;
+    if(model.cart.length>0)
+      {
+        for(int i=0; i<model.cart.length;i++)
+          {
+            int subtotal = int.parse(model.cart[i].spec_price) * int.parse(model.cart[i].qty);
+            total+=subtotal;
+          }
+
+      }
+      return total;
+  }
+  Future launchUrl(String url)async{
+    if(await canLaunch(url)){
+      await launch(url,forceSafariVC: true,forceWebView: true);
+
+    }
+  }
   Widget _buildchangeQty(BuildContext context, String Qty, int cartid) {
     TextEditingController controller1 = new TextEditingController();
 
@@ -367,6 +418,7 @@ class Mycart extends State<Cart> {
                             if(value['message']!=null)
                               {
                                 Navigator.of(context).pop();
+
                               }
 
                           });

@@ -9,6 +9,8 @@ import '../api/UserAPI.dart';
 import '../widgets/checkbox_widget.dart';
 import '../widgets/dialog.dart';
 import 'package:email_validator/email_validator.dart';
+
+
 class AccountSetting extends StatefulWidget{
   @override
   AccountSettings createState() => AccountSettings();

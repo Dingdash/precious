@@ -11,10 +11,11 @@ class cartModel extends Model{
   }
   CartAPI api = new CartAPI(uid);
   Future parseFromResponse(String uid) async {
-    print("tarik");
+
     api.uid = uid;
 
-    var dataFromResponse = await api.getCarts("1");
+
+    var dataFromResponse = await api.getCarts(uid);
 
     var _wishlist = dataFromResponse as List;
     _wishlist.forEach((data){

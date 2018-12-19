@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../session/singleton.dart';
 
 class myDrawer extends StatelessWidget {
-  int wishes = 0;
+
 
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,17 +13,19 @@ class myDrawer extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 CircleAvatar(
-                  child: Text(
-                    session.getAvatarName(),
+                  child:
+                  session.getAvatarName()==null?
+                  Text(
+                    "AV",
                     textScaleFactor: 2.8,
 
-                  ),
+                  ):Text(session.getAvatarName(),textScaleFactor: 2.8,),
                   radius: 50.0,
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
-                Text(session.getEmail,style: drawerTextStyle(),),
+                Text(session.getEmail??"example.com",style: drawerTextStyle(),),
               ],
             ),
             //decoration: BoxDecoration(),
@@ -52,6 +54,13 @@ class myDrawer extends StatelessWidget {
             onTap: () {
 
               Navigator.of(context).pushReplacementNamed('/cart');
+            },
+          ),
+          ListTile(
+            leading: buildIcon(Icons.attach_money),
+            title: Text("Transaction",style: drawerTextStyle(),),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/transaction');
             },
           ),
           ListTile(

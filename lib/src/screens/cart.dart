@@ -187,12 +187,14 @@ class Cart extends State<FavoriteWidget> {
 //                  child: Text('remove')),
 //            ),
             SizedBox(
-                height: 10.0
+                height: 8.0
             ),
             new Divider(
               height: 2.0,
             ),
+
           ],
+
         );
       },
     );

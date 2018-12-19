@@ -22,10 +22,8 @@ class Categories extends StatelessWidget {
 
     );
   }
-
   Widget CategoriesTile(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -49,7 +47,6 @@ class Categories extends StatelessWidget {
                       return Material(
                         color: Colors.white,
                         child: InkWell(
-
                           onTap: () {
                             // Navigator.of(context).pushReplacementNamed('/home');
                             Navigator.pushNamed(
@@ -63,7 +60,6 @@ class Categories extends StatelessWidget {
                             height: itemHeight-30,
                             child: SizedBox.expand(
                                 child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image:product.imgurl,fit: BoxFit.fill,)
-//
                             ),
                           ),Center(child:Text(product.name)),],) ),
                         ),
@@ -93,7 +89,7 @@ class Category{
   factory Category.fromJson(Map<String, dynamic> json)
   {
     return Category(
-        name: json['name'],id:json['category_id'].toString(),imgurl: 'tes'
+        name: json['name'],id:json['category_id'].toString(),imgurl: json['picture']
     );
   }
 
