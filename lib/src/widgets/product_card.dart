@@ -13,6 +13,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       elevation: 50.0,
       child: new Column(
@@ -28,7 +29,7 @@ class ProductCard extends StatelessWidget {
                     width: 400,
                     height: 200,
                     child: SizedBox.expand(
-                      child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image: "http://preciousx.store/images/"+cover??"https://www.w3schools.com/w3css/img_lights.jpg",fit: BoxFit.fitHeight,)
+                      child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.jpg', image: "http://preciousx.store/images/"+cover??"https://www.w3schools.com/w3css/img_lights.jpg",fit: BoxFit.fitHeight,)
 //                    child: Image(
 //                      image: NetworkImage(
 //                          "https://www.w3schools.com/w3css/img_lights.jpg"),

@@ -50,7 +50,6 @@ class Checkout extends State<CheckoutState> {
   }
   loadshippers()
   {
-
     api.getShippers().then((value){
       var data = value['data'] as List;
       for(int i=0; i<data.length;i++)
@@ -137,7 +136,7 @@ class Checkout extends State<CheckoutState> {
                 decoration: InputDecoration(hintText: 'Description'),
                 obscureText: false,
                 controller: description,
-                // validator: (val) => passwordValidator(val),
+                 validator: (val) => emptyvalidator(val),
               ),
               Row(
                 children: <Widget>[
@@ -161,7 +160,6 @@ class Checkout extends State<CheckoutState> {
                           setState(() {
                             selectedshipper = value;
                           });
-
 
                         }),
                   ),

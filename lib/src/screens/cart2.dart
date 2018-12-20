@@ -21,22 +21,14 @@ class Mycart extends State<Cart> {
   int total =  0;
   bool load = true;
   cartModel model = new cartModel(uid);
-
   Mycart(String uid) {
     uid = uid;
     model.parseFromResponse(uid);
   }
-
   final CartAPI c = new CartAPI( uid);
   final formatCurrency = new NumberFormat.simpleCurrency(locale: "ID",name: "Rp ");
-
-
-
   Widget build(BuildContext context) {
-
-
     double c_width = MediaQuery.of(context).size.width * 1;
-
     return ScopedModel(
       model: model,
       child: Scaffold(
@@ -65,9 +57,9 @@ class Mycart extends State<Cart> {
                                   height: 150.0,
                                   width: 100.0,
                                   child: FadeInImage.assetNetwork(
-                                    placeholder: 'assets/images/noimage.png',
+                                    placeholder: 'assets/images/noimage.jpg',
                                     image:
-                                        "https://www.w3schools.com/w3css/img_lights.jpg",
+                                        'http://preciousx.store/images/'+model.cart[index].product_cover,
                                     fit: BoxFit.fill,
                                   )),
                               SizedBox(
@@ -87,6 +79,7 @@ class Mycart extends State<Cart> {
                                     SizedBox(height: 4.0),
                                     Text('${formatCurrency.format(int.parse(model.cart[index].qty)*int.parse(model.cart[index].spec_price))}'),
                                     SizedBox(height: 3.0),
+
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -98,7 +91,6 @@ class Mycart extends State<Cart> {
                                                   context: context,
                                                   builder: (_) => _buildchangeQty(context,model.cart[index].qty.toString(), model.cart[index].cartid)
                                               );
-
                                             },
                                             child: Text('Change Qty',style: TextStyle(color: Colors.white),)),
 //                                        SizedBox(

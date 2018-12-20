@@ -28,15 +28,15 @@ class Wishlist extends StatelessWidget {
               return ListTile(
                 title: model.wishlist.length < 1
                     ? Text('is loading..')
-                    : Text(model.wishlist[0].Product_name),
+                    : Text(model.wishlist[index].Product_name),
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('/products/' + model.wishlist[0].Product_ID);
+                      .pushNamed('/products/' + model.wishlist[index].Product_ID);
                 },
                 trailing: RaisedButton(
                     onPressed: () {
                       // c.uid = uid;
-                      _buildremoveitems(context,model.wishlist[0].Wishlist_ID);
+                      _buildremoveitems(context,model.wishlist[index].Wishlist_ID);
                     },
                     child: Text('Remove')),
               );

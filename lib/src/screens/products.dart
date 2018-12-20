@@ -126,13 +126,13 @@ class ProductScopedModel extends Model {
     dataFromResponse.forEach((newProduct) {
       //parse new product's details
       //TODO GET PRICE FROM API
+      print(newProduct['price']);
       Product product = new Product(
         id: newProduct["id"],
         name: newProduct["name"],
-        price: "10",
+        price: newProduct['price'].toString(),
         description: newProduct['Product_description'],
         cover: newProduct['cover']
-
       );
       currentProductCount += 1;
       addToProductsList(product);

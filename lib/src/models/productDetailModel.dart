@@ -23,7 +23,7 @@ class ProductDetailModel extends Model {
   }
   ProductDetailModel(String id)
   {
-    print(id);
+  //  print(id);
     parseFromResponse(id);
   }
   ChangeVariant(Variant value)
@@ -52,13 +52,14 @@ class ProductDetailModel extends Model {
 
     var dataFromResponse = await _getProduct(id);
     dataFromResponse = dataFromResponse['data'];
-
-
       var variasi = dataFromResponse['variant'] as List;
     item.Product_name = dataFromResponse['Product_name'];
+
+    item.Product_cover = dataFromResponse['Product_cover'];
+    //print(item.Product_cover);
+    //print(dataFromResponse['Product_cover']);
     item.Product_ID = dataFromResponse['Product_ID'];
     item.Product_description = dataFromResponse["Product_description"];
-
     variasi.forEach((varian) {
         Variant v = Variant(
             Specification_ID: varian['Specification_ID']??"a",
@@ -85,6 +86,7 @@ class ProductItem {
   String Product_ID;
   String Product_name;
   String Product_description;
+  String Product_cover;
   List<Variant> variant = List<Variant>();
 }
 

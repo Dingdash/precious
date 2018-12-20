@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'screens/ForgotPass.dart';
 import 'colors.dart';
 import 'screens/checkout.dart';
 import 'screens/account_settings.dart';
@@ -110,7 +110,7 @@ class App extends StatelessWidget {
       return MaterialPageRoute(builder:(context){
         var arr = settings.name.split('/');
         String url = arr[2];
-        print(url);
+       // print(url);
         return CheckoutState(int.parse(url));
       });
     }else if (settings.name.contains('/transaction')){
@@ -119,6 +119,10 @@ class App extends StatelessWidget {
           return TransactionPage();
       });
 
+    }else if (settings.name.contains('/forgotpass')){
+      return MaterialPageRoute(builder:(context){
+        return ForgtpassForm();
+      });
     }else if (settings.name.contains('/webview')){
       var arr = settings.name.split('/');
       String url = arr[2];

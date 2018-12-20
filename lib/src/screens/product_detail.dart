@@ -32,19 +32,16 @@ class ProductDetail extends StatelessWidget {
         model: model,
         child: ListView(
           children: <Widget>[
-            SizedBox(
-                height: 300.0,
-                child: Carousel(
-                  images: [
+            ScopedModelDescendant<ProductDetailModel>(
+              builder:(context,child,model)=>
+                  SizedBox(
+                    height: 300.0,
+                    child: SizedBox.expand(
+                        child: FadeInImage.assetNetwork(placeholder:  'assets/images/noimage.png', image: "http://preciousx.store/images/"+model.item.Product_cover.toString(),fit: BoxFit.fitHeight,)
+                    ),
+                  ),
+            ),
 
-                    NetworkImage(
-                        'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-                    NetworkImage(
-                        'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
-                  ],
-                  dotSize: 5.0,
-                  dotBgColor: Color.fromARGB(0, 255, 255, 255),
-                )),
             Container(
               padding: EdgeInsets.all(10.0),
               child: Column(

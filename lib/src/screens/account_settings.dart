@@ -207,18 +207,13 @@ Dialogs d = new Dialogs();
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
-            obscureText: true,
+            obscureText: false,
             decoration: InputDecoration(
               hintText: 'password',
 
               //errorText: 'enter valid email',
             ),
             controller: oldpass,
-          ),
-          Row(
-            children: <Widget>[
-
-            ],
           ),
           TextFormField(
             decoration: InputDecoration(
