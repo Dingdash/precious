@@ -11,12 +11,9 @@ class CartAPI {
    }
 
   Future<List<CartItems>> getCart() async {
-
-
     var response = await http
         .get(c.base_url + "/cart/"+uid.toString());
     var parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-
     return parsed.map<CartItems>((json) => CartItems.fromJson(json)).toList();
   }
    Future<dynamic> getCarts(String uid) async {

@@ -148,7 +148,7 @@ class RegisterPage extends State<RegisterForm> {
     var resp = await http
         .post(url, headers: headers, body: body)
         .timeout(Duration(seconds: 6), onTimeout: () {
-      d.information(context, "Register Failed", "request timedout");
+      d.information(context, "Info", "request timedout");
     }).catchError((e) {
       print(e.toString());
     }).then((http.Response response) {
@@ -161,7 +161,7 @@ class RegisterPage extends State<RegisterForm> {
         dynamic result = decoder.convert(json);
         if(result['message']!=null)
           {
-            d.information(context, "Register Failed", result['message']);
+            d.information(context, "Info", result['message']);
           }
       }
     });
