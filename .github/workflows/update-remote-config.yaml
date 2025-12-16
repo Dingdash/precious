@@ -37,12 +37,9 @@ jobs:
         working-directory: ./cicd/firebase
         run: |
           npm install
-          node index.js
+          node firebase-updater.js
 
       # - name: Create Service Account Key JSON
       #   run: |
       #     echo '${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}' > ./cicd/SERVICE_ACCOUNT_KEY.json
       
-      - name: Run Firebase Updater Script
-        run: node cicd/firebase_updater.js
-            
