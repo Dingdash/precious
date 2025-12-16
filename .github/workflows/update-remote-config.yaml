@@ -28,7 +28,8 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.18.2'
+          node-version: '20.x'
+          channel: stable
           cache: 'npm'
           cache-dependency-path: 'cicd/firebase/package-lock.json' 
 
