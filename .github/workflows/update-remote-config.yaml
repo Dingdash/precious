@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: '20.18.2'
           cache: 'npm'
-          cache-dependency-path: 'cicd/package-lock.json' 
+          cache-dependency-path: 'cicd/firebase/package-lock.json' 
 
       - name: Install Packages
         working-directory: ./cicd/firebase
